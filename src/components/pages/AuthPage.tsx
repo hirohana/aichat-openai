@@ -5,7 +5,7 @@ import { SecondaryLink } from "src/components/atoms/link/SecondaryLink";
 
 const AuthPage = () => {
   return (
-    <div className="w-full h-screen mx-auto px-4 bg-gray-50 md:text-center">
+    <div className="w-full h-screen mx-auto px-4 md:text-center">
       <div className="flex flex-col items-center justify-center h-full">
         <HeadingText text="ログイン・アカウント登録" />
         <HeadingDescription description="ログインする場合はログインボタン、アカウントを作成する場合は登録ボタンを押してください。" />
