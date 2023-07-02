@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 
 import { NextAuthProvider } from "src/components/templates/NextAuthProvider";
+import { Header } from "src/components/organisms/header/Header";
 import { Footer } from "src/components/organisms/footer/Footer";
 
 import "src/styles/globals.css";
@@ -20,12 +21,13 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body>
+        <Header />
         <div className="w-full bg-gray-50">
           <main>
             <NextAuthProvider>{children}</NextAuthProvider>
           </main>
-          <Footer />
         </div>
+        <Footer />
       </body>
     </html>
   );
