@@ -1,5 +1,5 @@
-import Link from "next/link";
+import { HomePage } from "src/components/pages/HomePage";
 
 export default function Home() {
-  return <Link href={"./form"}>form2!update</Link>;
+  return <HomePage />;
 }
