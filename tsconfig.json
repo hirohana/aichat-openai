@@ -19,9 +19,6 @@
         "name": "next"
       }
     ],
-    "paths": {
-      "--use-pnpm": ["./src/*"]
-    },
     "baseUrl": "."
   },
   "include": [

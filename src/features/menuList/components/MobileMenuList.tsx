@@ -1,6 +1,8 @@
 import { Dialog } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 
+import { menuList } from "src/features/menuList/const/mobileMenuList";
+
 function MobileMenuList() {
   return (
     <Dialog as="div" open={mobileMenuOpen} onClose={setMobileMenuOpen}>

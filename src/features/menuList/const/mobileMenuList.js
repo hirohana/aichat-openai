@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const mobileMenuList = [
+const menuList = [
   <Link
     key="ホーム"
     href="/"
@@ -34,4 +34,4 @@ const mobileMenuList = [
   </Link>,
 ];
 
-export { mobileMenuList };
+export { menuList };
