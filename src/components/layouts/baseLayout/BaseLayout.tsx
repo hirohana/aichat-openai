@@ -3,16 +3,19 @@ import { Header } from "src/components/layouts/header/Header";
 import { Footer } from "src/components/layouts/footer/Footer";
 
 import "src/styles/globals.css";
+import ReduxProvider from "src/stores/Provider";
 
 function BaseLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ja">
       <body>
-        <Header />
-        <main className="bg-gray-50">
-          <NextAuthProvider>{children}</NextAuthProvider>
-        </main>
-        <Footer />
+        {/* <ReduxProvider> */}
+        <NextAuthProvider>
+          <Header />
+          <main className="bg-gray-50">{children}</main>
+          <Footer />
+        </NextAuthProvider>
+        {/* </ReduxProvider> */}
       </body>
     </html>
   );
