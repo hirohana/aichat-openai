@@ -3,7 +3,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 
 import { menuList } from "src/features/menuList/const/mobileMenuList";
 
-function MobileMenuList() {
+function MenuList() {
   return (
     <Dialog as="div" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
       <div className="fixed inset-0 z-10" />
@@ -27,4 +27,4 @@ function MobileMenuList() {
   );
 }
 
-export { MobileMenuList };
+export { MenuList };
