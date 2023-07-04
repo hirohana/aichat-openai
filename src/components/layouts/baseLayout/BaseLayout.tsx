@@ -9,13 +9,13 @@ function BaseLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ja">
       <body>
-        {/* <ReduxProvider> */}
-        <NextAuthProvider>
-          <Header />
-          <main className="bg-gray-50">{children}</main>
-          <Footer />
-        </NextAuthProvider>
-        {/* </ReduxProvider> */}
+        <ReduxProvider>
+          <NextAuthProvider>
+            <Header />
+            <main className="bg-gray-50">{children}</main>
+            <Footer />
+          </NextAuthProvider>
+        </ReduxProvider>
       </body>
     </html>
   );

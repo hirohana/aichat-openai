@@ -7,8 +7,9 @@ export const menuOpenSlice = createSlice({
   },
   reducers: {
     menuOpen: (state) => {
-      console.log(state);
-      !state;
+      console.log(state.isOpen);
+      state.isOpen = !state.isOpen;
+      console.log(state.isOpen);
     },
   },
 });
