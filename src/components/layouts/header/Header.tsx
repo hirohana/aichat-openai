@@ -1,26 +1,27 @@
 "use client";
 
-import { useDispatch } from "react-redux";
-import { menuList } from "src/components/elements/sideMenu/const/menuList";
+import { useDispatch, useSelector } from "react-redux";
 
-import { useState } from "react";
+import { openMenu } from "src/stores/openMenu/reducer";
 import { HamburgerButton } from "src/components/elements/button/humbergerButton/HamburgerButton";
 import { SideMenu } from "src/components/elements/sideMenu/SideMenu";
+import { menuList } from "src/components/elements/sideMenu/const/menuList";
+import { OverLay } from "src/components/elements/overlay/OverLay";
+import type { OpenMenu } from "src/types/reduxStore";
 
 function Header() {
-  const [openMenu, setOpenMenu] = useState(false);
-
-  const handleMenuOpen = () => {
-    setOpenMenu(!openMenu);
-  };
-
+  const dispatch = useDispatch();
+  const isOpen = useSelector<OpenMenu, boolean>(
+    (state) => state.openMenu.isOpen
+  );
   return (
     <header className="flex justify-end h-16 pr-3">
       <HamburgerButton
-        openMenu={openMenu}
-        setOpenMenu={() => handleMenuOpen()}
+        isOpen={isOpen}
+        setOpenMenu={() => dispatch(openMenu())}
       />
-      <SideMenu openMenu={openMenu} menuList={menuList} />
+      <OverLay isOpen={isOpen} setOpenMenu={() => dispatch(openMenu())} />
+      <SideMenu isOpen={isOpen} menuList={menuList} />
     </header>
   );
 }

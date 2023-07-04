@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { signOut } from "next-auth/react";
 
 const menuList = [
   {
@@ -20,7 +21,7 @@ const menuList = [
     element: (
       <Link
         key="ログイン"
-        href="/login"
+        href="/auth/login"
         className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
       >
         ログイン
@@ -31,13 +32,13 @@ const menuList = [
     key: "ログアウト",
     image: "",
     element: (
-      <Link
+      <button
         key="ログアウト"
-        href="/"
+        onClick={() => signOut({ callbackUrl: "/auth/login" })}
         className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
       >
         ログアウト
-      </Link>
+      </button>
     ),
   },
   {
@@ -46,7 +47,7 @@ const menuList = [
     element: (
       <Link
         key="登録"
-        href="/register"
+        href="/auth/register"
         className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
       >
         登録
