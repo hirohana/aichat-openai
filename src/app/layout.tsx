@@ -1,11 +1,4 @@
-import { Inter } from "next/font/google";
-
-import { NextAuthProvider } from "src/components/templates/NextAuthProvider";
-import { Footer } from "src/components/organisms/footer/Footer";
-
-import "src/styles/globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import { BaseLayout } from "src/components/layouts/baseLayout/BaseLayout";
 
 export const metadata = {
   title: "Create Next App",
@@ -17,16 +10,5 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <html lang="ja">
-      <body>
-        <div className="w-full bg-gray-50">
-          <main>
-            <NextAuthProvider>{children}</NextAuthProvider>
-          </main>
-          <Footer />
-        </div>
-      </body>
-    </html>
-  );
+  return <BaseLayout>{children}</BaseLayout>;
 }

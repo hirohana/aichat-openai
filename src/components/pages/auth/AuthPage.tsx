@@ -1,7 +1,7 @@
-import { HeadingText } from "src/components/atoms/heading/HeadingText";
-import { HeadingDescription } from "src/components/atoms/heading/HeadingDescription";
-import { PrimaryLink } from "src/components/atoms/link/PrimaryLink";
-import { SecondaryLink } from "src/components/atoms/link/SecondaryLink";
+import { HeadingText } from "src/components/elements/heading/HeadingText";
+import { HeadingDescription } from "src/components/elements/heading/HeadingDescription";
+import { PrimaryLink } from "src/components/elements/link/PrimaryLink";
+import { SecondaryLink } from "src/components/elements/link/SecondaryLink";
 
 const AuthPage = () => {
   return (
