@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import menuOpenReducer from "./menuOpen/reducer";
+import openMenuReducer from "./openMenu/reducer";
 
 type Store = {
   menuOpen: {
@@ -9,7 +9,7 @@ type Store = {
 
 export const store = configureStore({
   reducer: {
-    menuOpen: menuOpenReducer,
+    openMenu: openMenuReducer,
   },
 });
 
