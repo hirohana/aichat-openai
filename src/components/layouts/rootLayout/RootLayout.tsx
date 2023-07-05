@@ -5,20 +5,24 @@ import { Header } from "src/components/layouts/header/Header";
 import { Footer } from "src/components/layouts/footer/Footer";
 import "src/styles/globals.css";
 
-function BaseLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="ja">
       <body>
         <ReduxProvider>
           <NextAuthProvider>
-            <Header />
-            <main className="bg-gray-50">{children}</main>
-            <Footer />
+            <div className="bg-gray-100">
+              <Header />
+              <main>{children}</main>
+              <Footer />
+            </div>
           </NextAuthProvider>
         </ReduxProvider>
       </body>
     </html>
   );
 }
-
-export { BaseLayout };
