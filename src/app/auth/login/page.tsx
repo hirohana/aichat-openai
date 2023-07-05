@@ -1,15 +1,5 @@
-"use client";
-
-import { signIn } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
+import { LoginPage } from "src/components/pages/login/LoginPage";
 
 export default function Login() {
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/profile";
-
-  return (
-    <button onClick={() => signIn("google", { callbackUrl })}>
-      login With Google
-    </button>
-  );
+  return <LoginPage />;
 }
