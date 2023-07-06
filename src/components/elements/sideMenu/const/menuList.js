@@ -41,19 +41,6 @@ const menuList = [
       </button>
     ),
   },
-  {
-    key: "登録",
-    image: "",
-    element: (
-      <Link
-        key="登録"
-        href="/auth/register"
-        className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-      >
-        登録
-      </Link>
-    ),
-  },
 ];
 
 export { menuList };

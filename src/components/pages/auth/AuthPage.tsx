@@ -8,12 +8,12 @@ const AuthPage = () => {
   return (
     <PageFrame>
       <HeadingText text="ログイン・アカウント登録" />
-      <HeadingDescription description="ログインする場合はログインボタン、アカウントを作成する場合は登録ボタンを押してください。" />
+      <HeadingDescription
+        description={`初回ログインの方はアカウントも新規に作成されます。
+      ご了承いただけた場合はログイン画面へお進みください。`}
+      />
       <div className="flex items-center justify-center">
-        <div className="mr-8">
-          <PrimaryLink name="ログイン" href="/login" />
-        </div>
-        <SecondaryLink name="登録" href="/register" />
+        <PrimaryLink name="ログイン画面へ" href="/auth/login" />
       </div>
     </PageFrame>
   );

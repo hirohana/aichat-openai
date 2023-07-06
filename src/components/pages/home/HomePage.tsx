@@ -8,7 +8,7 @@ export async function HomePage() {
   const user = session?.user;
 
   if (!user) {
-    redirect("/auth/login");
+    redirect("/auth");
   }
   return (
     <div>
