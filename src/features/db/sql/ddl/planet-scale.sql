@@ -11,13 +11,14 @@ CREATE TABLE `txn_users` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最終更新日時'
 );
 
-CREATE TABLE `txn_error_log` (
+CREATE TABLE `txn_error_logs` (
   `id` int PRIMARY KEY AUTO_INCREMENT COMMENT 'エラー番号',
-  `error_message` text NOT NULL COMMENT 'エラーメッセージ',
-  `error_code` varchar(100) NOT NULL COMMENT 'エラーコード',
-  `user_id` int NOT NULL COMMENT 'ユーザー番号',
-  `request_url` text NOT NULL COMMENT 'リクエストURL',
-  `stack_trace` text NOT NULL COMMENT 'スタックトレース',
+  `error_message` varchar(100) COMMENT 'エラーメッセージ',
+  `error_code` int COMMENT 'エラーコード',
+  `user_id` int COMMENT 'ユーザー番号',
+  `request_url` text COMMENT 'リクエストURL',
+  `stack_trace` text COMMENT 'スタックトレース',
+  `sql_state` int COMMENT 'SQLのエラーコード',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
