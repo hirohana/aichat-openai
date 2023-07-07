@@ -11,6 +11,16 @@ CREATE TABLE `txn_users` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最終更新日時'
 );
 
+CREATE TABLE `txn_error_log` (
+  `id` int PRIMARY KEY AUTO_INCREMENT COMMENT 'エラー番号',
+  `error_message` text NOT NULL COMMENT 'エラーメッセージ',
+  `error_code` varchar(100) NOT NULL COMMENT 'エラーコード',
+  `user_id` int NOT NULL COMMENT 'ユーザー番号',
+  `request_url` text NOT NULL COMMENT 'リクエストURL',
+  `stack_trace` text NOT NULL COMMENT 'スタックトレース',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
 -- START TRANSACTION;
 
 INSERT INTO `txn_users` (`name`) VALUES
@@ -18,5 +28,7 @@ INSERT INTO `txn_users` (`name`) VALUES
 ("test2"),
 ("test3"),
 ("Hirohana");
+
+INSERT INTO `txn_error_log` (`error_message`, `error_code`, `user_id`, `request_url`, `stack_trace`) VALUES ("test", "test_code", 4, "http://localhost:3000/auth", "test_trace");
 
 -- COMMIT;
