@@ -5,12 +5,15 @@ import { MouseEventHandler } from "react";
 
 type Props = {
   name: string;
-  onClick: MouseEventHandler<HTMLButtonElement>;
+  onClick: MouseEventHandler<HTMLDivElement>;
 };
 
 function GoogleAuthButton({ name, onClick }: Props) {
   return (
-    <div className="flex justify-center items-center px-4 py-4 bg-white border rounded-md cursor-pointer hover:bg-indigo-100">
+    <div
+      onClick={onClick}
+      className="flex justify-center items-center px-4 py-4 bg-white border rounded-md cursor-pointer hover:bg-indigo-100"
+    >
       <Image
         src="/icon/google.png"
         alt="google_icon"
@@ -18,9 +21,7 @@ function GoogleAuthButton({ name, onClick }: Props) {
         height="30"
         className="mr-2"
       />
-      <button onClick={onClick} className="text-gray-500 font-semibold">
-        {name}
-      </button>
+      <button className="text-gray-500 font-semibold">{name}</button>
     </div>
   );
 }

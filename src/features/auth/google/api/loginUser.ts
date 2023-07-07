@@ -1,15 +1,15 @@
-import mysql from "mysql2/promise";
 import { getServerSession } from "next-auth";
+import { signIn } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
+import { NextResponse } from "next/server";
+import mysql from "mysql2/promise";
 
 import { authOptions } from "src/features/auth/libs/authOptions";
+import { CALLBACK_URL, GOOGLE, HOME } from "src/const";
 
-type UserProps = {
-  nickname: string;
-  email: string;
-  password: string;
-};
-
-async function insert() {
+export async function GET() {
+  // const searchParams = useSearchParams();
+  // const callbackUrl = searchParams.get(CALLBACK_URL) || HOME;
   // // DATABASE_URLチェック
   // if (!process.env.DATABASE_URL) return false;
 
@@ -35,6 +35,5 @@ async function insert() {
   // }
 
   // // ホームページにリダイレクト。
+  return NextResponse.json("Hello, World", { status: 200 });
 }
-
-export { insert };
