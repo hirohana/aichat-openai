@@ -1,7 +1,31 @@
 import { Abstract } from "./Abstract";
+import type { ErrorInformation } from "../types";
 
 class Error_logs extends Abstract {
-  public async insert() {}
+  public async insert({
+    error_message,
+    error_code,
+    user_id,
+    request_url,
+    stack_trace,
+    sql_state,
+  }: ErrorInformation): Promise<boolean> {
+    const query =
+      "INSERT INTO txn_error_logs (`error_message`, `error_code`, `user_id`, `request_url`, `stack_trace`, `sql_state`) VALUES (?, ?, ?, ?, ?, ?)";
+    const params = [
+      error_message,
+      error_code,
+      user_id,
+      request_url,
+      stack_trace,
+      sql_state,
+    ];
+
+    // TODO [result]をany型ではなく、適切な型に修正を行う。
+    const [result]: any[] = await this.executeQuery(query, params);
+    const isSuccess = result.affectedRows > 0;
+    return isSuccess;
+  }
 }
 
 export { Error_logs };

@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS `txn_users`;
-
 set time_zone = '+09:00';
+
+DROP TABLE IF EXISTS `txn_users`;
 
 CREATE TABLE `txn_users` (
   `id` int PRIMARY KEY AUTO_INCREMENT COMMENT 'ユーザーID',
@@ -11,15 +11,17 @@ CREATE TABLE `txn_users` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最終更新日時'
 );
 
+DROP TABLE IF EXISTS `txn_error_logs`;
+
 CREATE TABLE `txn_error_logs` (
   `id` int PRIMARY KEY AUTO_INCREMENT COMMENT 'エラー番号',
   `error_message` varchar(100) COMMENT 'エラーメッセージ',
   `error_code` int COMMENT 'エラーコード',
   `user_id` int COMMENT 'ユーザー番号',
   `request_url` text COMMENT 'リクエストURL',
-  `stack_trace` text COMMENT 'スタックトレース',
   `sql_state` int COMMENT 'SQLのエラーコード',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `stack_trace` text COMMENT 'スタックトレース'
 );
 
 -- START TRANSACTION;
