@@ -29,9 +29,8 @@ CREATE TABLE `txn_error_logs` (
 INSERT INTO `txn_users` (`name`) VALUES
 ("test1"),
 ("test2"),
-("test3"),
-("Hirohana");
+("test3");
 
-INSERT INTO `txn_error_log` (`error_message`, `error_code`, `user_id`, `request_url`, `stack_trace`) VALUES ("test", "test_code", 4, "http://localhost:3000/auth", "test_trace");
+INSERT INTO `txn_error_logs` (`error_message`, `error_code`, `user_id`, `request_url`, `stack_trace`) VALUES ("test", 2020, 4, "http://localhost:3000/auth", "test_trace");
 
 -- COMMIT;
