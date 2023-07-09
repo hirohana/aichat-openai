@@ -19,22 +19,18 @@ export default function ChatView({ userIcon }: Props) {
   } = useSideEffects();
 
   return (
-    <>
-      <div className=" h-5/6">
-        <ChatConversation
-          messages={messages}
-          userIcon={userIcon}
-          assistantIcon={assistantIcon}
-          reply={reply}
-          isLoading={isLoading}
-        />
-      </div>
-      <div>
-        <ChatForm
-          handleSubmit={handleSubmit}
-          textAreaProps={{ message, setMessage }}
-        />
-      </div>
-    </>
+    <div className="flex flex-col justify-between w-full h-full">
+      <ChatConversation
+        messages={messages}
+        userIcon={userIcon}
+        assistantIcon={assistantIcon}
+        reply={reply}
+        isLoading={isLoading}
+      />
+      <ChatForm
+        handleSubmit={handleSubmit}
+        textAreaProps={{ message, setMessage }}
+      />
+    </div>
   );
 }

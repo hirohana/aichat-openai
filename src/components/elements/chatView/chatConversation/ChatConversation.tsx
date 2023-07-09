@@ -19,14 +19,23 @@ const ChatConversation = (props: Props) => {
   const { messages, userIcon, assistantIcon, reply, isLoading } = props;
 
   const { divRef } = useScrollToBottom();
-
   return (
-    <div
-      className="w-full h-120 bg-gray-100 overflow-scroll text-lg"
-      ref={divRef}
-    >
-      {!messages ? (
+    <div className="w-full bg-gray-100 text-lg overflow-scroll" ref={divRef}>
+      {messages.length === 0 ? (
         <>
+          <div>test</div>
+          <div>test</div>
+          <div>test</div>
+          <div>test</div>
+          <div>test</div>
+          <div>test</div>
+          <div>test</div>
+          <div>test</div>
+          <div>test</div>
+          <div>test</div>
+          <div>test</div>
+          <div>test</div>
+          <div>test</div>
           <div>test</div>
           <div>test</div>
           <div>test</div>

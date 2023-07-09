@@ -17,7 +17,7 @@ export async function HomePage() {
   return (
     <div className="h-screen mx-4">
       <Header />
-      <main className="flex flex-col justify-center items-center h-5/6 ">
+      <main className="flex flex-col justify-center items-center">
         <ChatView userIcon={user.image!} />
       </main>
       <Footer />

@@ -9,7 +9,8 @@ const ChatMessageArea = (props: Props) => {
     <textarea
       value={message}
       onChange={(e) => setMessage(e.target.value)}
-      className="resize-y w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-transparent"
+      placeholder="Send a message"
+      className="w-full sm:max-w-5xl py-2 px-4 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-transparent"
       rows={1}
       autoFocus
     ></textarea>

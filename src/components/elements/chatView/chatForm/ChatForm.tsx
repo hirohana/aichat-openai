@@ -1,8 +1,8 @@
-import { PrimaryButton } from "src/components/elements/button/primaryButton/PrimaryButton";
 import {
   ChatMessageArea,
   Props as TextAreaProps,
 } from "./chatMessageArea/ChatMessageArea";
+import { SendButton } from "./sendButton/SendButton";
 
 type Props = {
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -13,17 +13,16 @@ const ChatForm = (props: Props) => {
   const { handleSubmit, textAreaProps } = props;
 
   return (
-    <div className="px-6 py-4">
-      <div className="mb-4">
-        <form className="flex" onSubmit={(e) => handleSubmit(e)}>
-          <ChatMessageArea
-            message={textAreaProps.message}
-            setMessage={textAreaProps.setMessage}
-          />
-          <PrimaryButton name="送信" />
-        </form>
-      </div>
-    </div>
+    <form
+      onSubmit={(e) => handleSubmit(e)}
+      className="flex flex-col items-center sm:flex-row sm:items-start sm:justify-center w-full"
+    >
+      <ChatMessageArea
+        message={textAreaProps.message}
+        setMessage={textAreaProps.setMessage}
+      />
+      <SendButton name="送信" />
+    </form>
   );
 };
 
