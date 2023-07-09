@@ -12,7 +12,7 @@ function GoogleAuthButton({ name, onClick }: Props) {
   return (
     <div
       onClick={onClick}
-      className="flex justify-center items-center px-4 py-4 bg-white border rounded-md cursor-pointer hover:bg-indigo-100"
+      className="flex justify-center items-center w-72 px-4 py-4 bg-white border rounded-md cursor-pointer hover:bg-indigo-100"
     >
       <Image
         src="/icon/google.png"

@@ -19,8 +19,8 @@ export default function ChatView({ userIcon }: Props) {
   } = useSideEffects();
 
   return (
-    <div className="max-w-screen-md mx-auto px-4 py-8">
-      <div className=" bg-white rounded-lg shadow-lg overflow-hidden">
+    <>
+      <div className=" h-5/6">
         <ChatConversation
           messages={messages}
           userIcon={userIcon}
@@ -28,11 +28,13 @@ export default function ChatView({ userIcon }: Props) {
           reply={reply}
           isLoading={isLoading}
         />
+      </div>
+      <div>
         <ChatForm
           handleSubmit={handleSubmit}
           textAreaProps={{ message, setMessage }}
         />
       </div>
-    </div>
+    </>
   );
 }

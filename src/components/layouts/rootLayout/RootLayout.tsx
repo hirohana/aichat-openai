@@ -14,13 +14,7 @@ export default function RootLayout({
     <html lang="ja">
       <body>
         <ReduxProvider>
-          <NextAuthProvider>
-            <div className="bg-gray-100">
-              <Header />
-              <main>{children}</main>
-              <Footer />
-            </div>
-          </NextAuthProvider>
+          <NextAuthProvider>{children}</NextAuthProvider>
         </ReduxProvider>
       </body>
     </html>
