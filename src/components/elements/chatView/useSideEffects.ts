@@ -6,31 +6,18 @@ export const useSideEffects = () => {
     []
   );
   const [reply, setReply] = useState<string>("");
-  const [assistantIcon, setAssistantIcon] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  // NOTE cloud functionsのAPIを叩いて、OpenAIのAPIのストリームを取得する関数
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const sendMessageToApi = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    // TODO バリデーションチェック。現状足りないので増やす必要がある。
     validateMessage(message);
 
     try {
-      changeStateBeforeSendMessage(
-        setIsLoading,
-        setMessage,
-        setMessages,
-        message
-      );
+      createPayload(setIsLoading, setMessage, setMessages, message);
 
-      const tokens = await getTokensFromOpenaiAPI(
-        message,
-        setIsLoading,
-        setReply
-      );
+      const response = await sendPayloadAndGetTokens(message, setReply);
 
-      changeStateAfterSendMessage(setReply, setIsLoading, setMessages, tokens);
+      processResponse(setReply, setIsLoading, setMessages, response);
     } catch (err: any) {
       window.location.reload();
       alert(
@@ -45,18 +32,18 @@ export const useSideEffects = () => {
     messages,
     isLoading,
     reply,
-    assistantIcon,
-    handleSubmit,
+    sendMessageToApi,
   };
 };
 
+// TODO バリデーションチェック。現状足りないので増やす必要がある。
 function validateMessage(message: string) {
   if (!message) {
     return;
   }
 }
 
-function changeStateBeforeSendMessage(
+function createPayload(
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
   setMessage: React.Dispatch<React.SetStateAction<string>>,
   setMessages: React.Dispatch<
@@ -77,11 +64,11 @@ function changeStateBeforeSendMessage(
   setMessage("");
 }
 
-async function getTokensFromOpenaiAPI(
+async function sendPayloadAndGetTokens(
   message: string,
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
   setReply: React.Dispatch<React.SetStateAction<string>>
 ) {
+  debugger;
   const generator = streamChatCompletion(message);
 
   let tokens = "";
@@ -94,10 +81,15 @@ async function getTokensFromOpenaiAPI(
 }
 
 async function* streamChatCompletion(message: string) {
-  const completion = await fetch(
-    `${process.env.REACT_APP_CLOUD_FUNCTION_API_URL}?message=${message}`
-  );
+  const completion = await fetch("/api/openai", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(message),
+  });
 
+  debugger;
   const reader = completion.body?.getReader();
   if (completion.status !== 200 || !reader) {
     throw new Error("Request failed");
@@ -116,7 +108,7 @@ async function* streamChatCompletion(message: string) {
   }
 }
 
-function changeStateAfterSendMessage(
+function processResponse(
   setReply: React.Dispatch<React.SetStateAction<string>>,
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
   setMessages: React.Dispatch<

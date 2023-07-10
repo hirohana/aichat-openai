@@ -20,62 +20,32 @@ const ChatConversation = (props: Props) => {
 
   const { divRef } = useScrollToBottom();
   return (
-    <div className="w-full bg-gray-100 text-lg overflow-scroll" ref={divRef}>
-      {messages.length === 0 ? (
-        <>
-          <div>test</div>
-          <div>test</div>
-          <div>test</div>
-          <div>test</div>
-          <div>test</div>
-          <div>test</div>
-          <div>test</div>
-          <div>test</div>
-          <div>test</div>
-          <div>test</div>
-          <div>test</div>
-          <div>test</div>
-          <div>test</div>
-          <div>test</div>
-          <div>test</div>
-          <div>test</div>
-          <div>test</div>
-          <div>test</div>
-          <div>test</div>
-          <div>test</div>
-          <div>test</div>
-          <div>test</div>
-          <div>test</div>
-          <div>test</div>
-          <div>test</div>
-          <div>test</div>
-        </>
-      ) : (
-        <>
-          {messages.map((message) =>
-            message.sender === "user" ? (
-              <CharacterMessage
-                messageStyle="flex items-center p-4 bg-sky-50 whitespace-pre-wrap"
-                iconProps={{ url: userIcon }}
-                commentProps={{ comment: message.text }}
-                key={message.text}
-              />
-            ) : (
-              <CharacterMessage
-                messageStyle="flex items-center p-4 bg-gray-50 whitespace-pre-wrap"
-                iconProps={{ url: assistantIcon }}
-                commentProps={{ comment: message.text }}
-                key={message.text}
-              />
-            )
-          )}
-          <TemporaryCharacterMessage
-            reply={reply}
-            assistantIcon={assistantIcon}
-            isLoading={isLoading}
+    <div
+      className="w-full h-120 sm:h-160 bg-gray-100 text-lg overflow-scroll mb-4"
+      ref={divRef}
+    >
+      {messages.map((message) =>
+        message.sender === "user" ? (
+          <CharacterMessage
+            messageStyle="flex items-center p-4 bg-sky-50 whitespace-pre-wrap"
+            iconProps={{ url: userIcon }}
+            commentProps={{ comment: message.text }}
+            key={message.text}
           />
-        </>
+        ) : (
+          <CharacterMessage
+            messageStyle="flex items-center p-4 bg-gray-50 whitespace-pre-wrap"
+            iconProps={{ url: assistantIcon }}
+            commentProps={{ comment: message.text }}
+            key={message.text}
+          />
+        )
       )}
+      <TemporaryCharacterMessage
+        reply={reply}
+        assistantIcon={assistantIcon}
+        isLoading={isLoading}
+      />
     </div>
   );
 };
