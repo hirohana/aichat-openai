@@ -1,6 +1,6 @@
 import { CharacterComment } from "../characterComment/CharacterComment";
 import { CharacterIcon } from "../characterIcon/CharacterIcon";
-import { PingAnimation } from "src/components/elements/loading/pingAnimation/PingAnimation";
+import { PingAnimations } from "src/components/elements/loading/pingAnimations/PingAnimations";
 
 type Props = {
   assistantIcon: string;
@@ -19,8 +19,12 @@ const TemporaryCharacterMessage = (props: Props) => {
             <div className="w-1/6 mr-2">
               <CharacterIcon url={assistantIcon} />
             </div>
-            <div className="w-5/6">
-              {reply ? <CharacterComment comment={reply} /> : <PingAnimation />}
+            <div>
+              {reply ? (
+                <CharacterComment comment={reply} />
+              ) : (
+                <PingAnimations />
+              )}
             </div>
           </div>
         </>
