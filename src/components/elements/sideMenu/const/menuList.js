@@ -3,28 +3,41 @@ import { signOut } from "next-auth/react";
 
 const menuList = [
   {
-    key: "ホーム",
+    key: "ホームページ",
     image: "",
     element: (
       <Link
-        key="ホーム"
+        key="ホームページ"
         href="/"
         className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
       >
-        ホーム
+        ホームページ
       </Link>
     ),
   },
   {
-    key: "ログイン",
+    key: "ログインページ",
     image: "",
     element: (
       <Link
-        key="ログイン"
+        key="ログインページ"
         href="/auth/login"
         className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
       >
-        ログイン
+        ログインページ
+      </Link>
+    ),
+  },
+  {
+    key: "ApiKeyページ",
+    image: "",
+    element: (
+      <Link
+        key="ApiKeyページ"
+        href="/auth/api_key"
+        className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+      >
+        ApiKeyページ
       </Link>
     ),
   },

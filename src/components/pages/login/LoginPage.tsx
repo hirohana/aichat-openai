@@ -21,7 +21,7 @@ function LoginPage() {
   return (
     <div className="h-screen mx-4">
       <Header />
-      <main className="flex flex-col justify-center items-center h-5/6 mx-4">
+      <main className="flex flex-col justify-center items-center h-5/6">
         <HeadingText text={WELCOME_BACK} />
         <GoogleAuthButton
           name={CONTINUE_WITH_GOOGLE}
