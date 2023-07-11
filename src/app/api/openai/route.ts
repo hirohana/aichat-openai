@@ -5,7 +5,10 @@ import { OpenAIApi, Configuration } from "openai";
 export async function POST(request: Request) {
   const session = getServerSession();
   if (!session)
-    NextResponse.json({ message: "ログインを行ってから送信してください。" });
+    NextResponse.json(
+      { error: "ログインを行ってから送信してください。" },
+      { status: 403 }
+    );
 
   const message: string = await request.json();
   const API_KEY = process.env.OPEN_AI_API_KEY;

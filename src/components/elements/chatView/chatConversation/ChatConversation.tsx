@@ -1,6 +1,7 @@
 import { CharacterMessage } from "./characterMessage/CharacterMessage";
 import { TemporaryCharacterMessage } from "./temporaryCharacterMessage/TemporaryCharacterMessage";
 import { useScrollToBottom } from "./useScrollToBottom";
+import { USER } from "src/const";
 
 type Message = {
   sender: string;
@@ -17,27 +18,26 @@ type Props = {
 
 const ChatConversation = (props: Props) => {
   const { messages, userIcon, assistantIcon, reply, isLoading } = props;
-
   const { divRef } = useScrollToBottom();
   return (
     <div
-      className="w-full h-120 sm:h-160 bg-gray-100 text-lg overflow-scroll mb-4"
+      className="w-full h-120 sm:h-160 bg-gray-100 text-lg overflow-y-scroll mb-4"
       ref={divRef}
     >
       {messages.map((message) =>
-        message.sender === "user" ? (
+        message.sender === USER ? (
           <CharacterMessage
-            messageStyle="flex items-center p-4 bg-sky-50 whitespace-pre-wrap"
-            iconProps={{ url: userIcon }}
-            commentProps={{ comment: message.text }}
+            icon={userIcon}
+            comment={message.text}
             key={message.text}
+            sender={message.sender}
           />
         ) : (
           <CharacterMessage
-            messageStyle="flex items-center p-4 bg-gray-50 whitespace-pre-wrap"
-            iconProps={{ url: assistantIcon }}
-            commentProps={{ comment: message.text }}
+            icon={assistantIcon}
+            comment={message.text}
             key={message.text}
+            sender={message.sender}
           />
         )
       )}

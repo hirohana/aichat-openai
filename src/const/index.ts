@@ -11,3 +11,7 @@ export const PLEASE_REGISTER = "Please Register!!";
 export const HOME = "/";
 export const LOGIN = "login";
 export const CALLBACK_URL = "callbackUrl";
+
+// CharacterMessage Judgement
+export const USER = "user";
+export const ASSISTANT = "assistant";

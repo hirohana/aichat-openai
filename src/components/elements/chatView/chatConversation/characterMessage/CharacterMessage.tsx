@@ -1,32 +1,28 @@
-import {
-  CharacterIcon,
-  Props as IconProps,
-} from "../characterIcon/CharacterIcon";
-import {
-  CharacterComment,
-  Props as CommentProps,
-} from "../characterComment/CharacterComment";
+import { CharacterIcon } from "../characterIcon/CharacterIcon";
+import { CharacterComment } from "../characterComment/CharacterComment";
+import { USER } from "src/const";
 
 type Props = {
-  iconProps: IconProps;
-  commentProps: CommentProps;
-  messageStyle?: string;
+  icon: string;
+  comment: string;
+  sender: string;
 };
 
 const CharacterMessage = (props: Props) => {
-  const {
-    iconProps,
-    commentProps,
-    messageStyle = "flex items-center p-4 bg-gray-50 whitespace-pre-wrap",
-  } = props;
+  const { icon, comment, sender } = props;
 
   return (
-    <div className={messageStyle} key={commentProps.comment}>
-      <div className="w-1/6 mr-2">
-        <CharacterIcon url={iconProps.url} />
+    <div
+      className={`flex items-center p-4 whitespace-pre-wrap ${
+        sender === USER ? "bg-sky-50" : "bg-gray-50"
+      }`}
+      key={comment}
+    >
+      <div className="w-1/6 mr-2 sm:w-1/12 sm:mr-0">
+        <CharacterIcon url={icon} />
       </div>
-      <div className="w-5/6">
-        <CharacterComment comment={commentProps.comment} />
+      <div className="w-5/6 sm:w-11/12">
+        <CharacterComment comment={comment} />
       </div>
     </div>
   );

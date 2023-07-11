@@ -1,12 +1,20 @@
+import Image from "next/image";
+
 type Props = {
   url: string;
-  style?: string;
 };
 
 const CharacterIcon = (props: Props) => {
-  const { url, style = "w-16 h-16 rounded-md overflow-hidden object-cover" } =
-    props;
-  return <img src={url} alt="character-icon" className={style} />;
+  const { url } = props;
+  return (
+    <Image
+      src={url}
+      alt="character-icon"
+      className="rounded-md overflow-hidden object-cover"
+      width={32}
+      height={32}
+    />
+  );
 };
 
 export { CharacterIcon };

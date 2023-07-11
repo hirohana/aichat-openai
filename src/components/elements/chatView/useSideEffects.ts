@@ -15,9 +15,9 @@ export const useSideEffects = () => {
     try {
       createPayload(setIsLoading, setMessage, setMessages, message);
 
-      const response = await sendPayloadAndGetTokens(message, setReply);
-
-      processResponse(setReply, setIsLoading, setMessages, response);
+      const jsonTokens = await sendPayloadAndGetTokens(message, setReply);
+      const tokens = JSON.parse(jsonTokens);
+      processResponse(setReply, setIsLoading, setMessages, tokens);
     } catch (err: any) {
       window.location.reload();
       alert(
@@ -68,7 +68,6 @@ async function sendPayloadAndGetTokens(
   message: string,
   setReply: React.Dispatch<React.SetStateAction<string>>
 ) {
-  debugger;
   const generator = streamChatCompletion(message);
 
   let tokens = "";
@@ -89,7 +88,6 @@ async function* streamChatCompletion(message: string) {
     body: JSON.stringify(message),
   });
 
-  debugger;
   const reader = completion.body?.getReader();
   if (completion.status !== 200 || !reader) {
     throw new Error("Request failed");
@@ -119,15 +117,15 @@ function processResponse(
       }[]
     >
   >,
-  tokens: string
+  tokens: { role: string; content: string }
 ) {
   setReply("");
   setIsLoading(false);
   setMessages((prevMessages) => [
     ...prevMessages,
     {
-      sender: "assistant",
-      text: tokens,
+      sender: tokens.role,
+      text: tokens.content,
     },
   ]);
 }
