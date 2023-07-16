@@ -1,4 +1,4 @@
-import { BaseLayout } from "src/components/layouts/baseLayout/BaseLayout";
+import Layout from "src/components/layouts/rootLayout/RootLayout";
 
 export const metadata = {
   title: "Create Next App",
@@ -10,5 +10,5 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <BaseLayout>{children}</BaseLayout>;
+  return <Layout>{children}</Layout>;
 }

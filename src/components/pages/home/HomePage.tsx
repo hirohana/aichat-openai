@@ -1,17 +1,26 @@
+import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
-import { authOptions } from "src/features/auth/libs/authOptions";
+
+import { authOptions } from "src/features/auth/api/authOptions";
+import ChatView from "src/components/elements/chatView/ChatView";
+import { Header } from "src/components/layouts/header/Header";
+import { Footer } from "src/components/layouts/footer/Footer";
 
 export async function HomePage() {
   const session = await getServerSession(authOptions);
   const user = session?.user;
 
+  if (!user) {
+    redirect("/auth");
+  }
+
   return (
-    <div>
-      <h1>HomePage</h1>
-      <ul>
-        <li>name: {user ? user.name : "ゲストユーザー"}</li>
-        <li>email: {user ? user.email : ""}</li>
-      </ul>
+    <div className="flex flex-col justify-between h-screen  mx-4">
+      <Header />
+      <main className="flex flex-col justify-center items-center">
+        <ChatView userIcon={user.image!} />
+      </main>
+      <Footer />
     </div>
   );
 }
