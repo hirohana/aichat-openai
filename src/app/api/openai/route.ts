@@ -1,19 +1,9 @@
-import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-import { sendMessageToOpenAi } from "src/features/openai/api";
+
+import { getTokensFromOpenAi } from "./hooks/index";
 
 export async function POST(request: Request) {
-  const session = getServerSession();
+  const { tokens, message, status } = await getTokensFromOpenAi(request);
 
-  // TODO エラーが発生した際のクライアント側へのデータ送信の方法と
-  // クライアント側でどういう風にエラーメッセージを表示させるか。
-  if (!session)
-    NextResponse.json(
-      { error: "ログインを行ってから送信してください。" },
-      { status: 403 }
-    );
-
-  const message: string = await request.json();
-  const response = await sendMessageToOpenAi(message);
-  return NextResponse.json(response);
+  return NextResponse.json({ tokens, message }, { status });
 }

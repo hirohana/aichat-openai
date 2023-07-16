@@ -1,24 +1,26 @@
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 
+import { API_KEY, HOME, REGISTER_API_KEY } from "src/const";
+
 export async function registerApiKeyToCookie(request: Request) {
   const payload = { data: await request.json(), expiresIn: "1h" };
-  const privateKey = process.env.PRIVATE_KEY as string;
-  const token = jwt.sign(payload, privateKey, {
+  const secretKey = process.env.SECRET_KEY as string;
+  const token = jwt.sign(payload, secretKey, {
     algorithm: "HS256",
   });
 
   cookies().set({
-    name: "api_key",
+    name: API_KEY,
     value: token,
     httpOnly: true,
     secure: true,
     sameSite: "strict",
-    path: "/",
+    path: HOME,
   });
 
   return {
-    message: "Apiキーが保存されました。",
+    message: REGISTER_API_KEY,
     status: 200,
   };
 }

@@ -1,4 +1,12 @@
-export async function registerApiKey(key: string) {
+import { Dispatch, SetStateAction } from "react";
+import { RE_LOGIN_AND_RE_QUEST_MESSAGE } from "src/const";
+
+type Args = {
+  key: string;
+  setKey: Dispatch<SetStateAction<string>>;
+};
+
+export async function registerApiKey({ key, setKey }: Args) {
   try {
     const response = await fetch("/api/api_key/register", {
       method: "POST",
@@ -7,12 +15,14 @@ export async function registerApiKey(key: string) {
         "Content-Type": "application/json",
       },
     });
-    debugger;
+
     const { message } = await response.json();
     window.alert(message);
   } catch (err) {
-    window.alert("エラーが発生しました。少し時間を置いて再度お試しください。");
+    window.alert(RE_LOGIN_AND_RE_QUEST_MESSAGE);
   }
+
+  setKey("");
 }
 
 export async function deleteApiKey() {
@@ -21,8 +31,6 @@ export async function deleteApiKey() {
     const { message } = await response.json();
     window.alert(message);
   } catch (err) {
-    window.alert(
-      "エラーが発生しました。少し時間を置いて再度お試しください。" + err
-    );
+    window.alert(RE_LOGIN_AND_RE_QUEST_MESSAGE);
   }
 }

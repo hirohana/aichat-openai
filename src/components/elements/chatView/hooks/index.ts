@@ -1,6 +1,13 @@
 import { useState } from "react";
+import { RE_LOGIN_AND_RE_QUEST_MESSAGE, USER } from "src/const";
 
-export const useSideEffects = () => {
+type ResponseFromOpenAI = {
+  tokens: { role: string; content: string };
+  message: string;
+  status: number;
+};
+
+export const useHooks = () => {
   const [message, setMessage] = useState<string>("");
   const [messages, setMessages] = useState<{ sender: string; text: string }[]>(
     []
@@ -8,21 +15,34 @@ export const useSideEffects = () => {
   const [reply, setReply] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const sendMessageToApi = async (e: React.FormEvent<HTMLFormElement>) => {
+  const getTokenFromOpenAI = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     validateMessage(message);
 
     try {
       createPayload(setIsLoading, setMessage, setMessages, message);
 
-      const jsonTokens = await sendPayloadAndGetTokens(message, setReply);
-      const tokens = JSON.parse(jsonTokens);
+      const response = await fetch("/api/openai", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(message),
+      });
+
+      const { tokens, message: errMessage }: ResponseFromOpenAI =
+        await response.json();
+
+      if (errMessage) {
+        window.alert(errMessage);
+        window.location.reload();
+        return;
+      }
+
       processResponse(setReply, setIsLoading, setMessages, tokens);
     } catch (err: any) {
       window.location.reload();
-      alert(
-        "エラーが発生しました。時間をおいて再度リクエストを送信してください。"
-      );
+      alert(RE_LOGIN_AND_RE_QUEST_MESSAGE);
     }
   };
 
@@ -32,7 +52,7 @@ export const useSideEffects = () => {
     messages,
     isLoading,
     reply,
-    sendMessageToApi,
+    getTokenFromOpenAI,
   };
 };
 
@@ -59,51 +79,9 @@ function createPayload(
   setIsLoading(true);
   setMessages((prevMessages) => [
     ...prevMessages,
-    { sender: "user", text: message },
+    { sender: USER, text: message },
   ]);
   setMessage("");
-}
-
-async function sendPayloadAndGetTokens(
-  message: string,
-  setReply: React.Dispatch<React.SetStateAction<string>>
-) {
-  const generator = streamChatCompletion(message);
-
-  let tokens = "";
-  for await (let token of generator) {
-    tokens += token;
-    setReply(tokens);
-  }
-
-  return tokens;
-}
-
-async function* streamChatCompletion(message: string) {
-  const completion = await fetch("/api/openai", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(message),
-  });
-
-  const reader = completion.body?.getReader();
-  if (completion.status !== 200 || !reader) {
-    throw new Error("Request failed");
-  }
-  const decoder = new TextDecoder("utf-8");
-  let done = false;
-  while (!done) {
-    const { done: readDone, value } = await reader.read();
-    if (readDone) {
-      done = readDone;
-      reader.releaseLock();
-    } else {
-      const token = decoder.decode(value, { stream: true });
-      yield token;
-    }
-  }
 }
 
 function processResponse(

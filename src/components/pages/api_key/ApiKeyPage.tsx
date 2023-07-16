@@ -25,9 +25,9 @@ export function ApiKeyPage() {
     <div className="h-screen mx-4">
       <Header />
       <main className="flex flex-col justify-center items-center h-5/6 ">
-        <HeadingText text="Apiキー登録" />
+        <HeadingText text="APIキー登録" />
         <HeadingDescription
-          description={`Apiキーをお持ちの方は、下記の入力欄にて登録をお願いいたします。キーは1時間後に削除されます。`}
+          description={`APIキーをお持ちの方は、下記の入力欄にて登録をお願いいたします。キーは1時間後に削除されます。`}
         />
 
         <TextArea
@@ -36,7 +36,10 @@ export function ApiKeyPage() {
           placeholder="Please Input ApiKey"
         />
         <div className="flex flex-col sm:flex-row justify-center items-center sm:justify-between sm:flex sm:w-96 ">
-          <SecondaryButton name="登録" onClick={() => registerApiKey(value)} />
+          <SecondaryButton
+            name="登録"
+            onClick={() => registerApiKey({ key: value, setKey: setValue })}
+          />
           <TertiaryButton name="削除" onClick={() => deleteApiKey()} />
         </div>
       </main>

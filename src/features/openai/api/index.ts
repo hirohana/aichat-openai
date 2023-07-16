@@ -1,19 +1,30 @@
 import { OpenAIApi, Configuration } from "openai";
 
-export async function sendMessageToOpenAi(message: string) {
-  const API_KEY = process.env.OPEN_AI_API_KEY;
-  const openAi = new OpenAIApi(new Configuration({ apiKey: API_KEY }));
+import {
+  AI_MODEL_GPT_3_5,
+  SERVER_ERROR_STATUS_CODE_500,
+  STATUS_CODE_200,
+  STATUS_CODE_500,
+  USER,
+} from "src/const";
+
+export async function getTokenFromOpenAI(userMessage: string, apiKey: string) {
+  const openAi = new OpenAIApi(new Configuration({ apiKey }));
 
   try {
     const response = await openAi.createChatCompletion({
-      model: "gpt-3.5-turbo",
-      messages: [{ role: "user", content: message }],
+      model: AI_MODEL_GPT_3_5,
+      messages: [{ role: USER, content: userMessage }],
     });
-    return response.data.choices[0].message;
+
+    return {
+      tokens: response.data.choices[0].message,
+      status: STATUS_CODE_200,
+    };
   } catch (err) {
     return {
-      error: "エラーが発生しました。時間を置いて再度お試しください。",
-      status: 500,
+      message: SERVER_ERROR_STATUS_CODE_500,
+      status: STATUS_CODE_500,
     };
   }
 }
