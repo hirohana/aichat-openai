@@ -28,7 +28,6 @@ function LoginPage() {
           onClick={() => signIn(GOOGLE, { callbackUrl })}
         />
       </main>
-      <div>deploy2</div>
       <Footer />
     </div>
   );
