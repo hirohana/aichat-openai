@@ -5,9 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { openMenu } from "src/stores/openMenu/reducer";
 import { HamburgerButton } from "src/components/elements/button/humbergerButton/HamburgerButton";
 import { SideMenu } from "src/components/elements/sideMenu/SideMenu";
-import { menuList } from "src/components/elements/sideMenu/const/menuList";
 import { OverLay } from "src/components/elements/overlay/OverLay";
-import type { OpenMenu } from "src/types/reduxStore";
+import type { OpenMenu } from "src/types/index";
 
 function Header() {
   const dispatch = useDispatch();
@@ -21,7 +20,7 @@ function Header() {
         setOpenMenu={() => dispatch(openMenu())}
       />
       <OverLay isOpen={isOpen} setOpenMenu={() => dispatch(openMenu())} />
-      <SideMenu isOpen={isOpen} menuList={menuList} />
+      <SideMenu isOpen={isOpen} />
     </header>
   );
 }

@@ -1,14 +1,12 @@
 import { redirect } from "next/navigation";
-import { getServerSession } from "next-auth";
 
-import { authOptions } from "src/features/auth/api/authOptions";
 import ChatView from "src/components/elements/chatView/ChatView";
 import { Header } from "src/components/layouts/header/Header";
 import { Footer } from "src/components/layouts/footer/Footer";
+import { hasLoggedInUser } from "src/hooks";
 
 export async function HomePage() {
-  const session = await getServerSession(authOptions);
-  const user = session?.user;
+  const user = await hasLoggedInUser();
 
   if (!user) {
     redirect("/auth");

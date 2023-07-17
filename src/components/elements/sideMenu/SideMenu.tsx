@@ -1,13 +1,12 @@
+import { ChatLogList } from "./ChatLogList";
+import { MenuList } from "./MenuList";
+import { UserList } from "./UserList";
+
 type Props = {
   isOpen: boolean;
-  menuList: Array<{
-    key: string;
-    image: string;
-    element: JSX.Element;
-  }>;
 };
 
-export function SideMenu({ isOpen, menuList }: Props) {
+export function SideMenu({ isOpen }: Props) {
   return (
     <div>
       <nav
@@ -18,9 +17,9 @@ export function SideMenu({ isOpen, menuList }: Props) {
         }
       >
         <ul className="mt-6">
-          {menuList.map((menu) => (
-            <li key={menu.key}>{menu.element}</li>
-          ))}
+          <UserList />
+          <MenuList />
+          <ChatLogList />
         </ul>
       </nav>
     </div>
