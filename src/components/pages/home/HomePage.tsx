@@ -1,22 +1,17 @@
-import { redirect } from "next/navigation";
+"use client";
 
 import ChatView from "src/components/elements/chatView/ChatView";
 import { Header } from "src/components/layouts/header/Header";
 import { Footer } from "src/components/layouts/footer/Footer";
-import { hasLoggedInUser } from "src/hooks";
+import { useAuthCheckAndRedirect } from "src/hooks/useAuthCheckAndRedirect";
 
 export async function HomePage() {
-  const user = await hasLoggedInUser();
-
-  if (!user) {
-    redirect("/auth");
-  }
-
+  const user = useAuthCheckAndRedirect();
   return (
-    <div className="flex flex-col justify-between h-screen  mx-4">
+    <div className="flex flex-col justify-between h-screen mx-4">
       <Header />
       <main className="flex flex-col justify-center items-center">
-        <ChatView userIcon={user.image!} />
+        {user?.image && <ChatView userIcon={user.image} />}
       </main>
       <Footer />
     </div>
