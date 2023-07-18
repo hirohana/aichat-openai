@@ -1,8 +1,15 @@
 import { NextResponse } from "next/server";
-import { fetchTokensIfAuthenticated } from "./fetchTokensIfAuthenticated";
+import { fetchTokensIfAuthenticated } from "src/features/api/openai/fetchTokens";
 
 export async function POST(request: Request) {
-  const { tokens, message, status } = await fetchTokensIfAuthenticated(request);
+  const userMessage: string = await request.json();
+  const {
+    tokens,
+    message: errMessage,
+    status,
+  } = await fetchTokensIfAuthenticated(userMessage);
 
-  return NextResponse.json({ tokens, message }, { status });
+  // TODO userMessageをtxn_messagesテーブルに、tokensのAIレスポンスをtxn_responsesテーブルにそれぞれ挿入。
+
+  return NextResponse.json({ tokens, message: errMessage }, { status });
 }

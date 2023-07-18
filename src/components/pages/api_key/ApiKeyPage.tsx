@@ -12,14 +12,11 @@ import { TextArea } from "src/components/elements/input/TextArea";
 import { Footer } from "src/components/layouts/footer/Footer";
 import { Header } from "src/components/layouts/header/Header";
 import { registerApiKey, deleteApiKey } from "./hooks";
+import { useAuthCheckAndRedirect } from "src/hooks/useAuthCheckAndRedirect";
 
-export function ApiKeyPage() {
+export async function ApiKeyPage() {
   const [value, setValue] = useState("");
-  const { data: session, status } = useSession();
-
-  if (status === "unauthenticated") {
-    redirect("/auth");
-  }
+  useAuthCheckAndRedirect();
 
   return (
     <div className="h-screen mx-4">
