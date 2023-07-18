@@ -2,11 +2,11 @@ import { Dispatch, SetStateAction } from "react";
 import { RE_LOGIN_AND_RE_QUEST_MESSAGE } from "src/const";
 
 type Args = {
-  key: string;
-  setKey: Dispatch<SetStateAction<string>>;
+  key: string | undefined;
 };
 
-export async function registerApiKey({ key, setKey }: Args) {
+export async function registerApiKey({ key }: Args) {
+  if (!key) return;
   try {
     const response = await fetch("/api/api_key/register", {
       method: "POST",
@@ -22,7 +22,7 @@ export async function registerApiKey({ key, setKey }: Args) {
     window.alert(RE_LOGIN_AND_RE_QUEST_MESSAGE);
   }
 
-  setKey("");
+  window.location.reload();
 }
 
 export async function deleteApiKey() {
