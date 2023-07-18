@@ -2,7 +2,7 @@
 
 import { getServerSession } from "next-auth";
 
-import { authOptions } from "src/features/auth/api/authOptions";
+import { authOptions } from "src/features/api/auth/authOptions";
 import { SessionUser } from "src/types";
 
 export async function hasLoggedInUser(): Promise<SessionUser> {

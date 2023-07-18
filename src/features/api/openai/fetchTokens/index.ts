@@ -8,6 +8,33 @@ import {
   USER,
 } from "src/const";
 
+import { verifyApiKey } from "./verifyApiKey";
+
+export async function fetchTokens(request: Request) {
+  const {
+    apiKey,
+    message: verifyMessage,
+    status: verifyStatus,
+  } = verifyApiKey();
+  const hasApiKey = verifyStatus === STATUS_CODE_200;
+  if (!hasApiKey) {
+    return {
+      message: verifyMessage,
+      status: verifyStatus,
+    };
+  }
+
+  const userMessage: string = await request.json();
+  const {
+    tokens,
+    message: errMessage,
+    status,
+  } = await getTokenFromOpenAI(userMessage, apiKey);
+
+  // INFO userMessageをtxn_messagesに、tokensのAIレスポンスをtxn_responsesにそれぞれ挿入。
+  return { tokens, errMessage, status };
+}
+
 export async function getTokenFromOpenAI(userMessage: string, apiKey: string) {
   const openAi = new OpenAIApi(new Configuration({ apiKey }));
 

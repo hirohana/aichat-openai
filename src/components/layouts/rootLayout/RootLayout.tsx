@@ -1,5 +1,5 @@
 import ReduxProvider from "src/stores/Provider";
-import { NextAuthProvider } from "src/features/auth/components/NextAuthProvider";
+import { NextAuthProvider } from "src/features/api/auth/components/NextAuthProvider";
 
 import "src/styles/globals.css";
 
