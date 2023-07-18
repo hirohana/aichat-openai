@@ -22,7 +22,7 @@ export const useHooks = () => {
     try {
       createPayload(setIsLoading, setMessage, setMessages, message);
 
-      const response = await fetch("/api/openai", {
+      const response = await fetch("/api/openai/fetchTokens", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
