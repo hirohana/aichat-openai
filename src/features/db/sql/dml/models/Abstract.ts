@@ -1,6 +1,6 @@
 import mysql from "mysql2/promise";
 
-class Abstract {
+export class Abstract {
   protected DATABASE_URL = process.env.DATABASE_URL as string;
 
   /**
@@ -30,5 +30,3 @@ class Abstract {
 
   public rollback() {}
 }
-
-export { Abstract };
