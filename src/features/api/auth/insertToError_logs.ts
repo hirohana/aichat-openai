@@ -1,7 +1,8 @@
+import { DataSource } from "src/features/db/sql/dml/models/DataSource";
 import { Error_logs } from "src/features/db/sql/dml/models/Error_logs";
 
 // TODO user_idとrequest_urlを取得するコードを記述する。
-export async function insertToError_logs(err: any) {
+export async function insertToError_logs(err: any, dataSource: DataSource) {
   const errorObj = {
     error_message: err.code ?? null,
     error_code: err.errno ?? null,
@@ -12,7 +13,7 @@ export async function insertToError_logs(err: any) {
   };
 
   try {
-    const errorLogs = new Error_logs();
+    const errorLogs = new Error_logs(dataSource);
     await errorLogs.insert(errorObj);
   } catch (error) {
     console.error(error);
