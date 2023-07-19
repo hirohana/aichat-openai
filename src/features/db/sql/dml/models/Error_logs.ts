@@ -1,7 +1,12 @@
-import { Abstract } from "./Abstract";
+import { DataSource } from "./DataSource";
 import type { ErrorInformation } from "../types";
 
-class Error_logs extends Abstract {
+class Error_logs {
+  private dataSource: DataSource;
+
+  constructor(dataSource: DataSource) {
+    this.dataSource = dataSource;
+  }
   public async insert({
     error_message,
     error_code,
@@ -22,8 +27,9 @@ class Error_logs extends Abstract {
     ];
 
     // TODO [result]をany型ではなく、適切な型に修正を行う。
-    const [result]: any[] = await this.executeQuery(query, params);
+    const [result]: any[] = await this.dataSource.executeQuery(query, params);
     const isSuccess = result.affectedRows > 0;
+    this.dataSource.closeConnection();
     return isSuccess;
   }
 }

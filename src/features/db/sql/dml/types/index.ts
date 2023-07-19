@@ -12,3 +12,18 @@ export type ErrorInformation = {
   stack_trace: string;
   sql_state: number;
 };
+
+export type Theme = {
+  title: string;
+  user_id: number;
+};
+
+export type UserMessage = {
+  theme_id: string;
+  content: string;
+};
+
+export type AIResponse = {
+  theme_id: string;
+  content: string;
+};
