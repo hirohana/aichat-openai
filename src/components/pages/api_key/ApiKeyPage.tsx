@@ -9,11 +9,11 @@ import { HeadingText } from "src/components/elements/heading/HeadingText";
 import { Footer } from "src/components/layouts/footer/Footer";
 import { Header } from "src/components/layouts/header/Header";
 import { registerApiKey, deleteApiKey } from "./hooks";
-import { useAuthCheckAndRedirect } from "src/hooks/useAuthCheckAndRedirect";
+import { useCheckLocalAuthAndRedirect } from "src/hooks/useCheckLocalAuthAndRedirect";
 
 export async function ApiKeyPage() {
   const ref = useRef<HTMLTextAreaElement>(null);
-  useAuthCheckAndRedirect();
+  useCheckLocalAuthAndRedirect();
 
   return (
     <div className="h-screen mx-4">

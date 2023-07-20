@@ -1,10 +1,9 @@
-import { getServerSession } from "next-auth";
-
 import { LOGIN_AND_RE_REQUEST_MESSAGE, STATUS_CODE_401 } from "src/const";
 import { fetchTokens } from "./fetchTokens";
+import { useAuthCheckServer } from "src/hooks/useAuthCheckServer";
 
 export async function fetchTokensIfAuthenticated(userMessage: string) {
-  const isLogin = await authUser();
+  // const isLogin = await useAuthCheckServer();
   if (!isLogin) {
     return {
       message: LOGIN_AND_RE_REQUEST_MESSAGE,
@@ -13,11 +12,4 @@ export async function fetchTokensIfAuthenticated(userMessage: string) {
   }
 
   return await fetchTokens(userMessage);
-}
-
-async function authUser(): Promise<boolean> {
-  const session = await getServerSession();
-
-  if (!session) return false;
-  return true;
 }

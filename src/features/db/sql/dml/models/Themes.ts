@@ -8,6 +8,7 @@ export class Themes {
   constructor(dataSource: DataSource) {
     this.dataSource = dataSource;
   }
+
   // TODO txn_messagesとtxn_responsesテーブルを結合してtheme_idと一致するデータを取得するメソッド。
   public async select(id: string) {
     const query = "SELECT `id, title, created_at` FROM txn_themes WHERE id = ?";
@@ -19,9 +20,10 @@ export class Themes {
   }
 
   public async insert(theme: Theme) {
-    const { title, user_id } = theme;
-    const query = "INSERT INTO txn_themes (`title`, `user_id`) VALUES (?, ?)";
-    const params = [title, user_id];
+    const { id, title, user_id } = theme;
+    const query =
+      "INSERT INTO txn_themes (`id`, `title`, `user_id`) VALUES (?, ?, ?)";
+    const params = [id, title, user_id];
 
     const [result]: any = await this.dataSource.executeQuery(query, params);
     const isSuccess = result.affectedRows > 0;
