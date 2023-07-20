@@ -29,7 +29,6 @@ class Error_logs {
     // TODO [result]をany型ではなく、適切な型に修正を行う。
     const [result]: any[] = await this.dataSource.executeQuery(query, params);
     const isSuccess = result.affectedRows > 0;
-    this.dataSource.closeConnection();
     return isSuccess;
   }
 }

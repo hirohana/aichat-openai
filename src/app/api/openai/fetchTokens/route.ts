@@ -20,11 +20,11 @@ export async function POST(request: Request) {
 
     const dataSource = DataSource.getInstance();
     const usersTable = new Users(dataSource);
-    const { id } = await usersTable.select(user?.name as string);
+    const {id}: {id: number} = await usersTable.select(user?.name as string);
 
     const AIMessage = tokens?.content as string;
 
-    await insertChatLogToDB(userMessage, AIMessage);
+    await insertChatLogToDB(userMessage, AIMessage, id);
 
     return NextResponse.json({ tokens, message: errMessage }, { status });
   } catch (err) {

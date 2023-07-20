@@ -33,7 +33,7 @@ export async function fetchTokens(userMessage: string) {
   return { tokens, errMessage, status };
 }
 
-export async function getTokenFromOpenAI(userMessage: string, apiKey: string) {
+async function getTokenFromOpenAI(userMessage: string, apiKey: string) {
   const openAi = new OpenAIApi(new Configuration({ apiKey }));
 
   try {
