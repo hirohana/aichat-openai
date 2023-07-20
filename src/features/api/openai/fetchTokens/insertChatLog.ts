@@ -22,10 +22,10 @@ export async function insertChatLogToDB(
 
     const messagesTable = new Messages(dataSource);
     const responsesTable = new Responses(dataSource);
-    const result = Promise.all([
-      messagesTable.insert({}),
-      responsesTable.insert(dataSource),
-    ]);
+    // const result = Promise.all([
+    //   messagesTable.insert({}),
+    //   responsesTable.insert(dataSource),
+    // ]);
 
     transaction.commit();
   } catch (err) {
