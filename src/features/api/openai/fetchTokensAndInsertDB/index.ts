@@ -22,11 +22,7 @@ export async function fetchTokensAndInsertDB({ request, user }: Args) {
   }: { userMessage: string; clientThemeId: string | null } =
     await request.json();
 
-  const {
-    tokens,
-    message: errMessage,
-    status,
-  } = await verifyApiKeyAndFetchTokens(userMessage);
+  const tokens = await verifyApiKeyAndFetchTokens(userMessage);
 
   // INFO フロント側からthemeIDを取得できなかった場合は初回リクエストになるので、themeIDを作成して処理。
   // フロント側からthemeIDを取得できた場合は初回リクエストではないので、渡ってきたthemeIDをそのまま渡して処理を行う。
@@ -49,5 +45,5 @@ export async function fetchTokensAndInsertDB({ request, user }: Args) {
     });
   }
 
-  return { tokens, errMessage, themeId: null };
+  return { tokens, themeId };
 }
