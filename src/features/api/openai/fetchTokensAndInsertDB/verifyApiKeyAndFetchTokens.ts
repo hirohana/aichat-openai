@@ -10,7 +10,7 @@ import {
 
 import { verifyApiKey } from "./verifyApiKey";
 
-export async function fetchTokens(userMessage: string) {
+export async function verifyApiKeyAndFetchTokens(userMessage: string) {
   const {
     apiKey,
     message: verifyMessage,
@@ -28,12 +28,12 @@ export async function fetchTokens(userMessage: string) {
     tokens,
     message: errMessage,
     status,
-  } = await getTokenFromOpenAI(userMessage, apiKey);
+  } = await fetchTokensFromOpenAI(userMessage, apiKey);
 
   return { tokens, errMessage, status };
 }
 
-async function getTokenFromOpenAI(userMessage: string, apiKey: string) {
+async function fetchTokensFromOpenAI(userMessage: string, apiKey: string) {
   const openAi = new OpenAIApi(new Configuration({ apiKey }));
 
   try {

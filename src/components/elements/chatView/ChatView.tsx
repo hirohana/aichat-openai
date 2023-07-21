@@ -15,7 +15,7 @@ export default function ChatView({ userIcon }: Props) {
     messages,
     isLoading,
     reply,
-    getTokenFromOpenAI,
+    fetchTokenFromOpenAI,
   } = useHooks();
 
   return (
@@ -28,7 +28,7 @@ export default function ChatView({ userIcon }: Props) {
         isLoading={isLoading}
       />
       <ChatForm
-        handleSubmit={getTokenFromOpenAI}
+        handleSubmit={fetchTokenFromOpenAI}
         textAreaProps={{ message, setMessage }}
       />
     </div>

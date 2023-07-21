@@ -1,39 +1,26 @@
 import { NextResponse } from "next/server";
-import { SERVER_ERROR_STATUS_CODE_500, STATUS_CODE_500 } from "src/const";
-import { fetchTokens } from "src/features/api/openai/fetchTokens/index";
-import { insertChatLogToDB } from "src/features/api/openai/fetchTokens/insertChatLog";
-import { DataSource } from "src/features/db/sql/dml/models/DataSource";
-import { Users } from "src/features/db/sql/dml/models/Users";
+import {
+  SERVER_ERROR_STATUS_CODE_500,
+  STATUS_CODE_200,
+  STATUS_CODE_500,
+} from "src/const";
 import { checkServerAuth } from "src/hooks/checkServerAuth";
+import { fetchTokensAndInsertDB } from "src/features/api/openai/fetchTokensAndInsertDB";
 
 export async function POST(request: Request) {
   try {
     const { isLogin, user } = await checkServerAuth();
     if (!isLogin) return;
 
-    const userMessage: string = await request.json();
-    const {
-      tokens,
-      message: errMessage,
-      status,
-    } = await fetchTokens(userMessage);
-
-    const dataSource = new DataSource();
-    const usersTable = new Users(dataSource);
-    const { id: userId }: { id: number } = await usersTable.select(
-      user?.name as string
-    );
-
-    const AIResponse = tokens?.content as string;
-
-    await insertChatLogToDB({
-      userMessage,
-      AIResponse,
-      userId,
-      dataSource,
+    const { tokens, errMessage, themeId } = await fetchTokensAndInsertDB({
+      request,
+      user,
     });
 
-    return NextResponse.json({ tokens, message: errMessage }, { status });
+    return NextResponse.json(
+      { tokens, message: errMessage, themeId },
+      { status: STATUS_CODE_200 }
+    );
   } catch (err) {
     return NextResponse.json(
       {
