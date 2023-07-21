@@ -1,44 +1,46 @@
 import { DataSource } from "src/features/db/sql/dml/models/DataSource";
+import { GenericTransaction } from "src/features/db/sql/dml/models/GenericTransaction";
 import { Messages } from "src/features/db/sql/dml/models/Messages";
 import { Responses } from "src/features/db/sql/dml/models/Responses";
 import { Themes } from "src/features/db/sql/dml/models/Themes";
 import { createUuid } from "src/hooks/createUuid";
 
-export async function insertChatLogToDB(
-  userMessage: string,
-  AIResponse: string,
-  userId: number
-) {
-  // const dataSource = DataSource.getInstance();
-  // let transaction = new TransactionManager(dataSource);
+type Args = {
+  userMessage: string;
+  AIResponse: string;
+  userId: number;
+  dataSource: DataSource;
+};
 
-  try {
-    await transaction.beginTransaction();
+export async function insertChatLogToDB({
+  userMessage,
+  AIResponse,
+  userId,
+  dataSource,
+}: Args) {
+  const genericTransaction = new GenericTransaction(dataSource);
 
+  await genericTransaction.performTransaction(async () => {
     const themesTable = new Themes(dataSource);
-    const theme_id = createUuid();
+    const themeId = createUuid();
     const trimMessage = userMessage.trim().slice(0, 10);
+
     await themesTable.insert({
-      id: theme_id,
+      id: themeId,
       title: trimMessage,
       user_id: userId,
     });
 
     const messagesTable = new Messages(dataSource);
-    const responsesTable = new Responses(dataSource);
-    await Promise.all([
-      messagesTable.insert({
-        theme_id,
-        content: userMessage.trim(),
-      }),
-      responsesTable.insert({ theme_id, content: AIResponse.trim() }),
-    ]);
+    await messagesTable.insert({
+      theme_id: themeId,
+      content: userMessage.trim(),
+    });
 
-    transaction.commit();
-  } catch (err) {
-    transaction.rollback();
-    throw err;
-  } finally {
-    dataSource.closeConnection();
-  }
+    const responsesTable = new Responses(dataSource);
+    await responsesTable.insert({
+      theme_id: themeId,
+      content: AIResponse.trim(),
+    });
+  });
 }

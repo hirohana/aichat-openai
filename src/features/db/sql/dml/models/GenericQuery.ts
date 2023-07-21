@@ -14,7 +14,6 @@ export class GenericQuery {
 
   public async performQuery(callback: any) {
     this.connection = await this.dataSource!.getConnection();
-    if (!this.connection) return;
 
     try {
       await callback();

@@ -18,13 +18,20 @@ export async function POST(request: Request) {
       status,
     } = await fetchTokens(userMessage);
 
-    const dataSource = DataSource.getInstance();
+    const dataSource = new DataSource();
     const usersTable = new Users(dataSource);
-    const {id}: {id: number} = await usersTable.select(user?.name as string);
+    const { id: userId }: { id: number } = await usersTable.select(
+      user?.name as string
+    );
 
-    const AIMessage = tokens?.content as string;
+    const AIResponse = tokens?.content as string;
 
-    await insertChatLogToDB(userMessage, AIMessage, id);
+    await insertChatLogToDB({
+      userMessage,
+      AIResponse,
+      userId,
+      dataSource,
+    });
 
     return NextResponse.json({ tokens, message: errMessage }, { status });
   } catch (err) {

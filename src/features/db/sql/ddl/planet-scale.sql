@@ -24,9 +24,9 @@ CREATE TABLE `txn_error_logs` (
   `stack_trace` text COMMENT 'スタックトレース'
 );
 
-DROP TABLE IF EXISTS `txn_Themes`;
+DROP TABLE IF EXISTS `txn_themes`;
 
-CREATE TABLE `txn_Themes` (
+CREATE TABLE `txn_themes` (
   `id` varchar(50) PRIMARY KEY COMMENT "テーマの一意の識別子",
   `title` varchar(50) COMMENT "チャットのタイトル",
   `user_id` int NOT NULL COMMENT "ユーザーの一意の値",
@@ -39,7 +39,7 @@ CREATE TABLE `txn_messages` (
   `id` int PRIMARY KEY AUTO_INCREMENT COMMENT "ユーザーメッセージの一意の識別子",
   `theme_id` varchar(50) NOT NULL COMMENT "テーマの一意の識別子",
   `content` text NOT NULL COMMENT "ユーザーメッセージの内容",
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT "メッセージの作成日時"
+  `created_at` timestamp(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT "メッセージの作成日時"
 );
 
 DROP TABLE IF EXISTS `txn_responses`;
@@ -48,7 +48,7 @@ CREATE TABLE `txn_responses` (
   `id` int PRIMARY KEY AUTO_INCREMENT COMMENT "AI返答の一意の識別子",
   `theme_id` varchar(50) NOT NULL COMMENT "テーマの一意の識別子",
   `content` text NOT NULL COMMENT "AIの返答内容",
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT "AIの返答日時"
+  `created_at` timestamp(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT "AIの返答日時"
 );
 
 -- START TRANSACTION;
