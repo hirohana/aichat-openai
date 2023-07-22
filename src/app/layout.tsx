@@ -1,7 +1,7 @@
 import Layout from "src/components/layouts/rootLayout/RootLayout";
 
 export const metadata = {
-  title: "AIChat-OpenAI",
+  title: "AIChat-OpenAI-DeployTest1",
   description: "OpenAI API Conversation",
 };
 
