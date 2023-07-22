@@ -8,17 +8,6 @@ export function verifyApiKey() {
   const jsonwebtoken = cookie.value;
   const secretKey = process.env.SECRET_KEY as string;
 
-  // try {
-  //   const payload: any = jwt.verify(jsonwebtoken, secretKey);
-  //   const apiKey = payload.data;
-  //   return { apiKey, status: STATUS_CODE_200 };
-  // } catch (err) {
-  //   return {
-  //     message: EXPIRED_API_KEY_AND_NOT_REGISTER_API_KEY,
-  //     status: STATUS_CODE_403,
-  //   };
-  // }
-
   const payload: any = jwt.verify(jsonwebtoken, secretKey);
   const apiKey = payload.data;
   return apiKey;

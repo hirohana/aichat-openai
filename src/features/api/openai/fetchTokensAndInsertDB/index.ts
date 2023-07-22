@@ -18,9 +18,8 @@ type Args = {
 export async function fetchTokensAndInsertDB({ request, user }: Args) {
   const {
     userMessage,
-    clientThemeId,
-  }: { userMessage: string; clientThemeId: string | null } =
-    await request.json();
+    themeId: clientThemeId,
+  }: { userMessage: string; themeId: string } = await request.json();
 
   const tokens = await verifyApiKeyAndFetchTokens(userMessage);
 

@@ -1,10 +1,46 @@
 import { useState } from "react";
-import { RE_LOGIN_AND_RE_QUEST_MESSAGE, USER } from "src/const";
 
-type ResponseFromOpenAI = {
+import {
+  RE_LOGIN_AND_RE_QUEST_MESSAGE,
+  STATUS_CODE_400,
+  USER,
+} from "src/const";
+
+type DataFromOpenAI = {
   tokens: { role: string; content: string };
+  themeId: string;
   message: string;
-  status: number;
+};
+
+type Payload = {
+  message: string;
+  themeId: string;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setMessage: React.Dispatch<React.SetStateAction<string>>;
+  setMessages: React.Dispatch<
+    React.SetStateAction<
+      {
+        sender: string;
+        text: string;
+      }[]
+    >
+  >;
+};
+
+type ProcessingResponse = {
+  tokens: { role: string; content: string };
+  themeId: string;
+  setReply: React.Dispatch<React.SetStateAction<string>>;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setMessages: React.Dispatch<
+    React.SetStateAction<
+      {
+        sender: string;
+        text: string;
+      }[]
+    >
+  >;
+  setThemeId: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export const useHooks = () => {
@@ -14,19 +50,21 @@ export const useHooks = () => {
   );
   const [reply, setReply] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [themeId, setThemeId] = useState<string>("");
 
   const fetchTokenFromOpenAI = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     validateMessage(message);
 
     try {
-      const payload = createPayload(
-        setIsLoading,
+      const payload = createPayload({
+        message,
+        themeId,
         setMessage,
         setMessages,
-        message
-      );
-      debugger;
+        setIsLoading,
+      });
+
       const response = await fetch("/api/openai/fetchTokens", {
         method: "POST",
         headers: {
@@ -35,19 +73,29 @@ export const useHooks = () => {
         body: JSON.stringify(payload),
       });
 
-      const { tokens, message: errMessage }: ResponseFromOpenAI =
-        await response.json();
+      const {
+        tokens,
+        themeId: serverThemeId,
+        message: errMessage,
+      }: DataFromOpenAI = await response.json();
 
-      if (errMessage) {
+      if (response.status >= STATUS_CODE_400) {
         window.alert(errMessage);
         window.location.reload();
         return;
       }
 
-      processResponse(setReply, setIsLoading, setMessages, tokens);
+      processResponse({
+        setReply,
+        setIsLoading,
+        setMessages,
+        tokens,
+        themeId: serverThemeId,
+        setThemeId,
+      });
     } catch (err: any) {
+      alert(`${RE_LOGIN_AND_RE_QUEST_MESSAGE}: ${err}`);
       window.location.reload();
-      alert(RE_LOGIN_AND_RE_QUEST_MESSAGE);
     }
   };
 
@@ -68,43 +116,33 @@ function validateMessage(message: string) {
   }
 }
 
-function createPayload(
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
-  setMessage: React.Dispatch<React.SetStateAction<string>>,
-  setMessages: React.Dispatch<
-    React.SetStateAction<
-      {
-        sender: string;
-        text: string;
-      }[]
-    >
-  >,
-  message: string
-) {
+function createPayload({
+  message,
+  themeId,
+  setIsLoading,
+  setMessage,
+  setMessages,
+}: Payload) {
   setIsLoading(true);
   setMessages((prevMessages) => [
     ...prevMessages,
     { sender: USER, text: message },
   ]);
   setMessage("");
+
   // TODO ReduxからclientThemeIdを取得する関数を定義して値を取得できた場合は代入。
-  // 値を取得できなかった場合は初回リクエストとしてclientThemeIdにnullを代入して送信。
-  return { userMessage: message, clientThemeId: null };
+  // 値を取得できなかった場合は初回リクエストとしてthemeIdをリクエストに含めて送信。
+  return { userMessage: message, themeId };
 }
 
-function processResponse(
-  setReply: React.Dispatch<React.SetStateAction<string>>,
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
-  setMessages: React.Dispatch<
-    React.SetStateAction<
-      {
-        sender: string;
-        text: string;
-      }[]
-    >
-  >,
-  tokens: { role: string; content: string }
-) {
+function processResponse({
+  tokens,
+  themeId,
+  setReply,
+  setIsLoading,
+  setMessages,
+  setThemeId,
+}: ProcessingResponse) {
   setReply("");
   setIsLoading(false);
   setMessages((prevMessages) => [
@@ -114,4 +152,5 @@ function processResponse(
       text: tokens.content,
     },
   ]);
+  setThemeId(themeId);
 }
