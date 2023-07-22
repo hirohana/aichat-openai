@@ -8,9 +8,4 @@ export async function deleteApiKeyFromCookie() {
     expires: new Date("2016-10-05"),
     path: HOME,
   });
-
-  return {
-    message: DELETE_API_KEY,
-    status: STATUS_CODE_200,
-  };
 }

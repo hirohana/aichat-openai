@@ -1,5 +1,10 @@
 import { NextResponse } from "next/server";
-import { SERVER_ERROR_STATUS_CODE_500, STATUS_CODE_500 } from "src/const";
+import {
+  DELETE_API_KEY,
+  SERVER_ERROR_STATUS_CODE_500,
+  STATUS_CODE_200,
+  STATUS_CODE_500,
+} from "src/const";
 import { deleteApiKeyFromCookie } from "src/features/api/api_key/delete";
 import { checkServerAuth } from "src/hooks/checkServerAuth";
 
@@ -8,9 +13,12 @@ export async function GET() {
     const { isLogin } = await checkServerAuth();
     if (!isLogin) return;
 
-    const { message, status } = await deleteApiKeyFromCookie();
+    await deleteApiKeyFromCookie();
 
-    return NextResponse.json({ message: message }, { status: status });
+    return NextResponse.json(
+      { message: DELETE_API_KEY },
+      { status: STATUS_CODE_200 }
+    );
   } catch (err) {
     return NextResponse.json(
       { message: `${SERVER_ERROR_STATUS_CODE_500}: ${err}` },

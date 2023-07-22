@@ -1,10 +1,13 @@
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 
-import { API_KEY, HOME, REGISTER_API_KEY } from "src/const";
+import { API_KEY, HOME } from "src/const";
 
 export async function registerApiKeyToCookie(request: Request) {
-  const payload = { data: await request.json(), expiresIn: "1h" };
+  const apiKey = await request
+    .json()
+    .then((apiKeyBeforeTrim: string) => apiKeyBeforeTrim.trim());
+  const payload = { data: apiKey, expiresIn: "1h" };
   const secretKey = process.env.SECRET_KEY as string;
   const token = jwt.sign(payload, secretKey, {
     algorithm: "HS256",
@@ -18,9 +21,4 @@ export async function registerApiKeyToCookie(request: Request) {
     sameSite: "strict",
     path: HOME,
   });
-
-  return {
-    message: REGISTER_API_KEY,
-    status: 200,
-  };
 }

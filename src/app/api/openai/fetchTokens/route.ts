@@ -16,14 +16,14 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ tokens, themeId }, { status: STATUS_CODE_200 });
   } catch (err: any) {
-    const errName = err.name as ErrorName;
+    const errMessage = err.message as ErrorName;
 
-    if (errorList[errName]) {
+    if (errorList[errMessage]) {
       return NextResponse.json(
         {
-          message: errorList[errName].message,
+          message: errorList[errMessage].message,
         },
-        { status: errorList[errName].status }
+        { status: errorList[errMessage].status }
       );
     }
 

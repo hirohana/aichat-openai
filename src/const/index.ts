@@ -35,6 +35,8 @@ export const DELETE_API_KEY = "APIキーが削除されました。";
 // Error Message
 export const RE_LOGIN_AND_RE_QUEST_MESSAGE =
   "エラーが発生しました。時間をおいて再度リクエストを送信してみてください。";
+export const RE_INPUT_APIKEY_TYPING_WRONG_TOKEN =
+  "APIキーを打ち間違えている可能性があります。もう一度APIキーを入力しなおしてください。";
 export const LOGIN_AND_RE_REQUEST_MESSAGE =
   "ログインを行ってから再度メッセージを送信してください。";
 export const EXPIRED_API_KEY_AND_NOT_REGISTER_API_KEY =
