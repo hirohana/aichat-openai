@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { SessionUser } from "src/types";
 
-export function useAuthCheckAndRedirect(): SessionUser {
+export function useCheckLocalAuthAndRedirect(): SessionUser {
   const { data: session, status } = useSession();
   const router = useRouter();
 

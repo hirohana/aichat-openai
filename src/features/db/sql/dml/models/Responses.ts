@@ -11,7 +11,7 @@ export class Responses {
   public async insert(response: AIResponse) {
     const { theme_id, content } = response;
     const query =
-      "INSERT INTO FROM txn_responses (`theme_id`, `content`) VALUES(?, ?)";
+      "INSERT INTO txn_responses (`theme_id`, `content`) VALUES(?, ?)";
     const params = [theme_id, content];
 
     const [result]: any = await this.dataSource.executeQuery(query, params);

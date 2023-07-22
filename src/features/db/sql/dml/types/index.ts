@@ -14,6 +14,7 @@ export type ErrorInformation = {
 };
 
 export type Theme = {
+  id: string;
   title: string;
   user_id: number;
 };

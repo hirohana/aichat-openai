@@ -7,6 +7,17 @@ export class Users {
   constructor(dataSource: DataSource) {
     this.dataSource = dataSource;
   }
+
+  public async select(name: User["name"]) {
+    const query = "SELECT * FROM txn_users WHERE name = ?";
+    const params = [name];
+
+    // TODO [result]をany型ではなく適切な型に修正を行う。
+    const [result]: any = await this.dataSource.executeQuery(query, params);
+    const user = result[0];
+    return user;
+  }
+
   public async exist(name: User["name"]): Promise<boolean> {
     const query = "SELECT * FROM txn_users WHERE name = ?";
     const params = [name];
@@ -14,7 +25,6 @@ export class Users {
     // TODO [result]をany型ではなく適切な型に修正を行う。
     const [result]: any = await this.dataSource.executeQuery(query, params);
     const isExist = result.length > 0;
-    this.dataSource.closeConnection();
     return isExist;
   }
 
@@ -26,7 +36,6 @@ export class Users {
     // TODO [result]をany型ではなく適切な型に修正を行う。
     const [result]: any = await this.dataSource.executeQuery(query, params);
     const isSuccess = result.affectedRows > 0;
-    this.dataSource.closeConnection();
     return isSuccess;
   }
 

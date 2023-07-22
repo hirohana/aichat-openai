@@ -15,19 +15,24 @@ export const useHooks = () => {
   const [reply, setReply] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const getTokenFromOpenAI = async (e: React.FormEvent<HTMLFormElement>) => {
+  const fetchTokenFromOpenAI = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     validateMessage(message);
 
     try {
-      createPayload(setIsLoading, setMessage, setMessages, message);
-
+      const payload = createPayload(
+        setIsLoading,
+        setMessage,
+        setMessages,
+        message
+      );
+      debugger;
       const response = await fetch("/api/openai/fetchTokens", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(message),
+        body: JSON.stringify(payload),
       });
 
       const { tokens, message: errMessage }: ResponseFromOpenAI =
@@ -52,7 +57,7 @@ export const useHooks = () => {
     messages,
     isLoading,
     reply,
-    getTokenFromOpenAI,
+    fetchTokenFromOpenAI,
   };
 };
 
@@ -82,6 +87,9 @@ function createPayload(
     { sender: USER, text: message },
   ]);
   setMessage("");
+  // TODO ReduxからclientThemeIdを取得する関数を定義して値を取得できた場合は代入。
+  // 値を取得できなかった場合は初回リクエストとしてclientThemeIdにnullを代入して送信。
+  return { userMessage: message, clientThemeId: null };
 }
 
 function processResponse(
