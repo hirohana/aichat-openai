@@ -30,14 +30,14 @@ export async function fetchTokensAndInsertDB({ request, user }: Args) {
   let themeId = clientThemeId;
   if (!themeId) {
     themeId = createUuid();
-    insertWithTransactionToAllTables({
+    await insertWithTransactionToAllTables({
       userMessage,
       AIResponse,
       username,
       themeId,
     });
   } else {
-    insertWithTransactionToMessagesAndResponses({
+    await insertWithTransactionToMessagesAndResponses({
       userMessage,
       AIResponse,
       themeId,
