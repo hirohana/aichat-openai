@@ -65,7 +65,7 @@ export const useHooks = () => {
         setIsLoading,
       });
 
-      const response = await fetch("/api/openai/fetchTokens", {
+      const response = await fetch("/api/openai/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
