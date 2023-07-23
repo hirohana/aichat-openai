@@ -4,9 +4,10 @@ import { UserList } from "./UserList";
 
 type Props = {
   isOpen: boolean;
+  themeIdList: Array<string>;
 };
 
-export function SideMenu({ isOpen }: Props) {
+export function SideMenu({ isOpen, themeIdList }: Props) {
   return (
     <div>
       <nav
@@ -19,7 +20,7 @@ export function SideMenu({ isOpen }: Props) {
         <ul className="mt-6">
           <UserList />
           <MenuList />
-          <ChatLogList />
+          <ChatLogList themeIdList={themeIdList} />
         </ul>
       </nav>
     </div>

@@ -7,6 +7,7 @@ import { useCheckLocalAuthAndRedirect } from "src/hooks/useCheckLocalAuthAndRedi
 
 export async function HomePage() {
   const user = useCheckLocalAuthAndRedirect();
+
   return (
     <div className="flex flex-col justify-between h-screen mx-4">
       <Header />

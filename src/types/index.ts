@@ -1,11 +1,16 @@
 // INFO アプリケーション全体で使用する型を定義
 
-import { Session } from "next-auth";
-
 // Redux StoreにあるopenMenuの型。
 export type OpenMenu = {
   openMenu: {
     isOpen: boolean;
+  };
+};
+
+// Redux StoreにあるthemeIdの型
+export type ThemeId = {
+  themeId: {
+    value: string;
   };
 };
 
