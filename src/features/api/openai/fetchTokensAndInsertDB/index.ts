@@ -30,6 +30,9 @@ export async function fetchTokensAndInsertDB({ request, user }: Args) {
   let themeId = clientThemeId;
   if (!themeId) {
     themeId = createUuid();
+
+    // FIXME パフォーマンス的にはawaitを付けないほうが良いが、Vercelのサーバーレス環境だとawaitを付けて逐次処理を行わないと
+    //       DBにデータが保存されなかったのでawaitを付与した。
     await insertWithTransactionToAllTables({
       userMessage,
       AIResponse,
@@ -37,6 +40,8 @@ export async function fetchTokensAndInsertDB({ request, user }: Args) {
       themeId,
     });
   } else {
+    // FIXME パフォーマンス的にはawaitを付けないほうが良いが、Vercelのサーバーレス環境だとawaitを付けて逐次処理を行わないと
+    //       DBにデータが保存されなかったのでawaitを付与した。
     await insertWithTransactionToMessagesAndResponses({
       userMessage,
       AIResponse,
