@@ -8,7 +8,7 @@ type Args = {
 export async function registerApiKey({ key }: Args) {
   if (!key) return;
   try {
-    const response = await fetch("/api/api_key/register", {
+    const response = await fetch("/api/api_key", {
       method: "POST",
       body: JSON.stringify(key),
       headers: {
@@ -19,7 +19,7 @@ export async function registerApiKey({ key }: Args) {
     const { message } = await response.json();
     window.alert(message);
   } catch (err) {
-    window.alert(RE_LOGIN_AND_RE_QUEST_MESSAGE);
+    window.alert(`RE_LOGIN_AND_RE_QUEST_MESSAGE: ${err}`);
   }
 
   window.location.reload();
@@ -27,7 +27,7 @@ export async function registerApiKey({ key }: Args) {
 
 export async function deleteApiKey() {
   try {
-    const response = await fetch("/api/api_key/delete");
+    const response = await fetch("/api/api_key", { method: "DELETE" });
     const { message } = await response.json();
     window.alert(message);
   } catch (err) {
