@@ -1,19 +1,20 @@
-import { themeList } from "src/types";
+import Link from "next/link";
+import type { ThemeList } from "src/types";
 
 type Props = {
-  themeList: themeList;
+  themeList: ThemeList;
 };
 
 export function ChatLogList({ themeList }: Props) {
   return (
-    <div>
-      <ul>
-        {themeList.map((theme) => (
-          <li key={theme.id} className="font-semibold">
-            themeId: {theme.title}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ul>
+      {themeList.map((theme) => (
+        <li key={theme.id}>
+          <Link href={`/chat/${theme.id}`} className="font-semibold">
+            {theme.title}
+          </Link>
+        </li>
+      ))}
+    </ul>
   );
 }

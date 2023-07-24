@@ -1,13 +1,10 @@
 "use client";
 
-import { MutableRefObject, useEffect, useRef, useState } from "react";
-
+import { useRef } from "react";
 import { SecondaryButton } from "src/components/elements/button/secondaryButton/SecondaryButton";
 import { TertiaryButton } from "src/components/elements/button/tertiaryButton/TertiaryButton";
 import { HeadingDescription } from "src/components/elements/heading/HeadingDescription";
 import { HeadingText } from "src/components/elements/heading/HeadingText";
-import { Footer } from "src/components/layouts/footer/Footer";
-import { Header } from "src/components/layouts/header/Header";
 import { registerApiKey, deleteApiKey } from "./hooks";
 import { useCheckLocalAuthAndRedirect } from "src/hooks/useCheckLocalAuthAndRedirect";
 
@@ -17,7 +14,6 @@ export async function ApiKeyPage() {
 
   return (
     <div className="h-screen mx-4">
-      <Header />
       <main className="flex flex-col justify-center items-center h-5/6 ">
         <HeadingText text="APIキー登録" />
         <HeadingDescription
@@ -39,7 +35,6 @@ export async function ApiKeyPage() {
           <TertiaryButton name="削除" onClick={() => deleteApiKey()} />
         </div>
       </main>
-      <Footer />
     </div>
   );
 }

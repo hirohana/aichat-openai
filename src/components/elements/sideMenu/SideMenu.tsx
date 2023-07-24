@@ -1,11 +1,12 @@
-import { themeList } from "src/types";
 import { ChatLogList } from "./ChatLogList";
 import { MenuList } from "./MenuList";
 import { UserList } from "./UserList";
 
+import type { ThemeList } from "src/types";
+
 type Props = {
   isOpen: boolean;
-  themeList: themeList;
+  themeList: ThemeList;
 };
 
 export function SideMenu({ isOpen, themeList }: Props) {

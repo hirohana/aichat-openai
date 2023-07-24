@@ -12,6 +12,7 @@ import { selectThemeList } from "src/features/api/openai/chat/get";
 export async function GET() {
   try {
     const { isLogin, user } = await checkServerAuth();
+
     // INFO ユーザーがログインしていない場合に、ただreturnだけ記述するとフロント側でエラーが発生するので空配列を返す。
     if (!isLogin) return NextResponse.json([]);
 

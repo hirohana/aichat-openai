@@ -1,3 +1,4 @@
+import { Header } from "src/components/layouts/header/Header";
 import Layout from "src/components/layouts/rootLayout/RootLayout";
 
 export const metadata = {

@@ -7,12 +7,12 @@ import { openMenu } from "src/stores/openMenu/reducer";
 import { HamburgerButton } from "src/components/elements/button/humbergerButton/HamburgerButton";
 import { SideMenu } from "src/components/elements/sideMenu/SideMenu";
 import { OverLay } from "src/components/elements/overlay/OverLay";
-import type { OpenMenu, ThemeId, themeList } from "src/types/index";
+import type { OpenMenu, ThemeId, ThemeList } from "src/types/index";
+
+const themeListInitialState = [{ id: "", title: "", created_at: "" }];
 
 function Header() {
-  const [themeList, setThemeList] = useState<themeList>([
-    { id: "", title: "", created_at: "" },
-  ]);
+  const [themeList, setThemeList] = useState<ThemeList>(themeListInitialState);
   const dispatch = useDispatch();
   const isOpen = useSelector<OpenMenu, boolean>(
     (state) => state.openMenu.isOpen

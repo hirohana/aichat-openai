@@ -1,3 +1,4 @@
+import { AnyAction, Dispatch } from "@reduxjs/toolkit";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -56,7 +57,9 @@ export const useHooks = () => {
 
   const fetchTokenFromOpenAI = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    validateMessage(message);
+
+    const isValidate = validateMessage(message);
+    if (!isValidate) return;
 
     try {
       const payload = createPayload({
@@ -87,7 +90,7 @@ export const useHooks = () => {
         return;
       }
 
-      dispatch(setThemeId(serverThemeId));
+      setThemeIdToReduxStore(dispatch, serverThemeId);
 
       processResponse({
         setReply,
@@ -112,10 +115,11 @@ export const useHooks = () => {
 };
 
 // TODO バリデーションチェック。現状足りないので増やす必要がある。
-function validateMessage(message: string) {
+function validateMessage(message: string): boolean {
   if (!message) {
-    return;
+    return false;
   }
+  return true;
 }
 
 function createPayload({
@@ -135,6 +139,13 @@ function createPayload({
   // TODO ReduxからclientThemeIdを取得する関数を定義して値を取得できた場合は代入。
   // 値を取得できなかった場合は初回リクエストとしてthemeIdをリクエストに含めて送信。
   return { userMessage: message, themeId };
+}
+
+function setThemeIdToReduxStore(
+  dispatch: Dispatch<AnyAction>,
+  serverThemeId: string
+) {
+  dispatch(setThemeId(serverThemeId));
 }
 
 function processResponse({
