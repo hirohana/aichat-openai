@@ -4,6 +4,13 @@ export type User = {
   image: string;
 };
 
+export type themeList = Array<{
+  id: string;
+  title: string;
+  user_id: number;
+  created_at: string;
+}>;
+
 export type ErrorInformation = {
   error_message: string;
   error_code: number;

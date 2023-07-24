@@ -7,10 +7,12 @@ import { openMenu } from "src/stores/openMenu/reducer";
 import { HamburgerButton } from "src/components/elements/button/humbergerButton/HamburgerButton";
 import { SideMenu } from "src/components/elements/sideMenu/SideMenu";
 import { OverLay } from "src/components/elements/overlay/OverLay";
-import type { OpenMenu, ThemeId } from "src/types/index";
+import type { OpenMenu, ThemeId, themeList } from "src/types/index";
 
 function Header() {
-  const [themeIdList, setThemeIdList] = useState<Array<string>>([""]);
+  const [themeList, setThemeList] = useState<themeList>([
+    { id: "", title: "", created_at: "" },
+  ]);
   const dispatch = useDispatch();
   const isOpen = useSelector<OpenMenu, boolean>(
     (state) => state.openMenu.isOpen
@@ -20,8 +22,8 @@ function Header() {
   useEffect(() => {
     const fetchThemeIdList = async () => {
       const response = await fetch("/api/openai/chat");
-      const themeIdList = await response.json();
-      setThemeIdList(themeIdList);
+      const themeList = await response.json();
+      setThemeList(themeList);
     };
     fetchThemeIdList();
   }, [themeId]);
@@ -33,7 +35,7 @@ function Header() {
         setOpenMenu={() => dispatch(openMenu())}
       />
       <OverLay isOpen={isOpen} setOpenMenu={() => dispatch(openMenu())} />
-      <SideMenu isOpen={isOpen} themeIdList={themeIdList} />
+      <SideMenu isOpen={isOpen} themeList={themeList} />
     </header>
   );
 }

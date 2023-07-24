@@ -19,7 +19,7 @@ export async function registerApiKey({ key }: Args) {
     const { message } = await response.json();
     window.alert(message);
   } catch (err) {
-    window.alert(`RE_LOGIN_AND_RE_QUEST_MESSAGE: ${err}`);
+    window.alert(`RE_LOGIN_AND_RE_QUEST_MESSAGE`);
   }
 
   window.location.reload();

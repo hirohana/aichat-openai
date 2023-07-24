@@ -14,8 +14,14 @@ export type ThemeId = {
   };
 };
 
-// NextAuthライブラリから取得するsessionの型
+// Backend側から取得するthemeListの型
+export type themeList = Array<{
+  id: string;
+  title: string;
+  created_at: string;
+}>;
 
+// NextAuthライブラリから取得するsessionの型
 export type SessionUser =
   | {
       name?: string | null | undefined;

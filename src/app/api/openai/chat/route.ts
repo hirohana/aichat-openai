@@ -5,17 +5,20 @@ import {
   STATUS_CODE_500,
 } from "src/const";
 import { checkServerAuth } from "src/hooks/checkServerAuth";
-import { fetchTokensAndInsertDB } from "src/features/api/openai/fetchTokensAndInsertDB";
+import { fetchTokensAndInsertDB } from "src/features/api/openai/chat/post";
 import { errorList, ErrorName } from "src/const/errorList";
+import { selectThemeList } from "src/features/api/openai/chat/get";
 
 export async function GET() {
   try {
     const { isLogin, user } = await checkServerAuth();
-
     // INFO ユーザーがログインしていない場合に、ただreturnだけ記述するとフロント側でエラーが発生するので空配列を返す。
     if (!isLogin) return NextResponse.json([]);
 
-    return NextResponse.json([]);
+    const userName = user?.name as string;
+    const themeList = await selectThemeList(userName);
+
+    return NextResponse.json(themeList);
   } catch (err: any) {
     const errMessage = err.message as ErrorName;
 

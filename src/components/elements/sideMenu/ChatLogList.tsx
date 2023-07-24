@@ -1,14 +1,16 @@
+import { themeList } from "src/types";
+
 type Props = {
-  themeIdList: Array<string>;
+  themeList: themeList;
 };
 
-export function ChatLogList({ themeIdList }: Props) {
+export function ChatLogList({ themeList }: Props) {
   return (
     <div>
       <ul>
-        {themeIdList.map((themeId) => (
-          <li key={themeId} className="font-semibold">
-            themeId: {themeId}
+        {themeList.map((theme) => (
+          <li key={theme.id} className="font-semibold">
+            themeId: {theme.title}
           </li>
         ))}
       </ul>

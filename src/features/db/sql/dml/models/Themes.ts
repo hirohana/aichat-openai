@@ -1,12 +1,24 @@
 import { DataSource } from "./DataSource";
 
-import type { Theme } from "../types";
+import type { Theme, themeList } from "../types";
 
 export class Themes {
   private dataSource: DataSource;
 
   constructor(dataSource: DataSource) {
     this.dataSource = dataSource;
+  }
+
+  public async selectByUserId(userId: string): Promise<themeList> {
+    const query =
+      "SELECT `id`, `title`, `created_at` FROM txn_themes WHERE user_id = ? ORDER BY created_at DESC";
+    const params = [userId];
+
+    const [result]: [themeList] = await this.dataSource.executeQuery(
+      query,
+      params
+    );
+    return result;
   }
 
   // TODO txn_messagesとtxn_responsesテーブルを結合してtheme_idと一致するデータを取得するメソッド。

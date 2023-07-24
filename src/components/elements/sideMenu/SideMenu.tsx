@@ -1,13 +1,14 @@
+import { themeList } from "src/types";
 import { ChatLogList } from "./ChatLogList";
 import { MenuList } from "./MenuList";
 import { UserList } from "./UserList";
 
 type Props = {
   isOpen: boolean;
-  themeIdList: Array<string>;
+  themeList: themeList;
 };
 
-export function SideMenu({ isOpen, themeIdList }: Props) {
+export function SideMenu({ isOpen, themeList }: Props) {
   return (
     <div>
       <nav
@@ -20,7 +21,7 @@ export function SideMenu({ isOpen, themeIdList }: Props) {
         <ul className="mt-6">
           <UserList />
           <MenuList />
-          <ChatLogList themeIdList={themeIdList} />
+          <ChatLogList themeList={themeList} />
         </ul>
       </nav>
     </div>
