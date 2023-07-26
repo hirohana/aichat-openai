@@ -7,8 +7,8 @@ import {
   STATUS_CODE_500,
 } from "src/const";
 import { ErrorName, errorList } from "src/const/errorList";
-import { deleteApiKeyFromCookie } from "src/features/api/api_key/deleteApiKeyFromCookie";
-import { registerApiKeyToCookie } from "src/features/api/api_key/registerApiKeyToCookie";
+import { deleteApiKeyFromCookie } from "src/features/api/api_key/delete/deleteApiKeyFromCookie";
+import { registerApiKeyToCookie } from "src/features/api/api_key/post/registerApiKeyToCookie";
 import { checkServerAuth } from "src/hooks/checkServerAuth";
 
 export async function POST(request: Request) {

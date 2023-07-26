@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, RefObject, SetStateAction } from "react";
 import { RE_LOGIN_AND_RE_QUEST_MESSAGE } from "src/const";
 
 type Args = {

@@ -7,18 +7,19 @@ import {
 import { checkServerAuth } from "src/hooks/checkServerAuth";
 import { fetchTokensAndInsertDB } from "src/features/api/openai/chat/post";
 import { errorList, ErrorName } from "src/const/errorList";
+import { selectThemeList } from "src/features/api/chat/get";
 
-export async function POST(request: Request) {
+export async function GET() {
   try {
     const { isLogin, user } = await checkServerAuth();
-    if (!isLogin) return;
 
-    const { tokens, themeId } = await fetchTokensAndInsertDB({
-      request,
-      user,
-    });
+    // INFO ユーザーがログインしていない場合に、ただreturnだけ記述するとフロント側でエラーが発生するので空配列を返す。
+    if (!isLogin) return NextResponse.json([]);
 
-    return NextResponse.json({ tokens, themeId }, { status: STATUS_CODE_200 });
+    const userName = user?.name as string;
+    const themeList = await selectThemeList(userName);
+
+    return NextResponse.json(themeList);
   } catch (err: any) {
     const errMessage = err.message as ErrorName;
 

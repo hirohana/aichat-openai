@@ -21,7 +21,7 @@ function Header() {
 
   useEffect(() => {
     const fetchThemeIdList = async () => {
-      const response = await fetch("/api/openai/chat");
+      const response = await fetch("/api/chat");
       const themeList = await response.json();
       setThemeList(themeList);
     };

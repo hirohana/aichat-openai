@@ -22,7 +22,7 @@ export class Themes {
   }
 
   // TODO txn_messagesとtxn_responsesテーブルを結合してtheme_idと一致するデータを取得するメソッド。
-  public async select(id: string) {
+  public async selectById(id: string) {
     const query = "SELECT `id, title, created_at` FROM txn_themes WHERE id = ?";
     const params = [id];
 
