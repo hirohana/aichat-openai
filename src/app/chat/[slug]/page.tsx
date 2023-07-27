@@ -1,10 +1,5 @@
-export default async function ChatDetail({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const slug = await fetch(`http://localhost:3000/api/chat/${params.slug}`, {
-    cache: "no-cache",
-  });
-  return <div>detail</div>;
+import { ChatSlug } from "src/components/pages/chat/ChatSlug";
+
+export default function ChatPage({ params }: { params: { slug: string } }) {
+  return <ChatSlug params={params} />;
 }

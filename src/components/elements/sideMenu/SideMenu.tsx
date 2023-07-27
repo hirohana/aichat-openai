@@ -15,11 +15,11 @@ export function SideMenu({ isOpen, themeList }: Props) {
       <nav
         className={
           isOpen
-            ? "fixed right-0 w-48 h-screen bg-white pt-8 px-3"
+            ? "fixed right-0 w-48 sm:w-64 h-screen bg-white pt-8 px-3"
             : "fixed right-[-100%]"
         }
       >
-        <ul className="mt-6">
+        <ul className="mt-8 w-full">
           <UserList />
           <MenuList />
           <ChatLogList themeList={themeList} />

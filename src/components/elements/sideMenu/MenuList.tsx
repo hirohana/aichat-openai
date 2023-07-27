@@ -6,7 +6,7 @@ export function MenuList() {
       {menuList.map((menu) => (
         <li
           key={menu.key}
-          className={`${menu.key === "ログアウト" ? "border-b" : ""}`}
+          className={`w-full ${menu.key === "ログアウト" ? "border-b" : ""}`}
         >
           {menu.element}
         </li>
