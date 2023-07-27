@@ -2,14 +2,20 @@
 
 import { RotatingLines as ReactRotatingLines } from "react-loader-spinner";
 
-export function RotatingLines() {
+type Props = {
+  topDistance?: string;
+};
+
+export function RotatingLines({ topDistance }: Props) {
   return (
-    <ReactRotatingLines
-      strokeColor="#6699FF"
-      strokeWidth="5"
-      animationDuration="0.75"
-      width="48"
-      visible={true}
-    />
+    <div className={`absolute ${topDistance}`}>
+      <ReactRotatingLines
+        strokeColor="#6699FF"
+        strokeWidth="5"
+        animationDuration="0.75"
+        width="36"
+        visible={true}
+      />
+    </div>
   );
 }

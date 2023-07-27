@@ -30,12 +30,12 @@ export const menuList = [
     ),
   },
   {
-    key: "APIKeyページ",
+    key: "APIKey",
     image: "",
     element: (
       <MenuListElement
         icon={<AiOutlineKey className="mr-2 sm:mr-4" />}
-        name="ログアウト"
+        name="APIKey"
         href="/api_key"
       />
     ),

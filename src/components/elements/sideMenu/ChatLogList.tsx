@@ -8,12 +8,12 @@ type Props = {
   themeList: ThemeList;
 };
 
-export function ChatLogList({ themeList }: Props) {
+export async function ChatLogList({ themeList }: Props) {
   return (
     <ul>
       {themeList.map((theme) => (
         <li
-          className="flex items-center mt-2 w-full hover:bg-gray-100"
+          className="flex items-center mt-2 w-full py-2 hover:bg-gray-100"
           key={theme.id}
         >
           <MenuIconDetail icon={<VscComment className="mr-2 sm:mr-4" />} />

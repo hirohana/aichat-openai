@@ -1,8 +1,10 @@
+import { Suspense } from "src/components/layouts/suspense/Suspense";
 import { ChatLogList } from "./ChatLogList";
 import { MenuList } from "./MenuList";
 import { UserList } from "./UserList";
 
 import type { ThemeList } from "src/types";
+import { RotatingLines } from "../loading/rotatingLines/RotatingLines";
 
 type Props = {
   isOpen: boolean;
@@ -19,10 +21,12 @@ export function SideMenu({ isOpen, themeList }: Props) {
             : "fixed right-[-100%]"
         }
       >
-        <ul className="mt-8 w-full">
+        <ul className="relative mt-8 w-full">
           <UserList />
           <MenuList />
-          <ChatLogList themeList={themeList} />
+          <Suspense loadingIcon={<RotatingLines topDistance="top-60" />}>
+            <ChatLogList themeList={themeList} />
+          </Suspense>
         </ul>
       </nav>
     </div>
