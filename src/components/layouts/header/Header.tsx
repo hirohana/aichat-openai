@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { openMenu } from "src/stores/openMenu/reducer";
 import { HamburgerButton } from "src/components/elements/button/humbergerButton/HamburgerButton";
-import { SideMenu } from "src/components/elements/sideMenu/SideMenu";
+import { SideMenu } from "src/components/layouts/header/sideMenu/SideMenu";
 import { OverLay } from "src/components/elements/overlay/OverLay";
 import type { OpenMenu, ThemeId, ThemeList } from "src/types/index";
 
@@ -25,6 +25,7 @@ function Header() {
       const themeList = await response.json();
       setThemeList(themeList);
     };
+
     fetchThemeIdList();
   }, [themeId]);
 

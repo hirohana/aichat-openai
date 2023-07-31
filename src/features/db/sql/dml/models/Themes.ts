@@ -11,7 +11,7 @@ export class Themes {
 
   public async selectByUserId(userId: string): Promise<themeList> {
     const query =
-      "SELECT `id`, `title`, `created_at` FROM txn_themes WHERE user_id = ? ORDER BY created_at DESC";
+      "SELECT `id`, `theme`, `created_at` FROM txn_themes WHERE created_by = ? ORDER BY created_at DESC";
     const params = [userId];
 
     const [result]: [themeList] = await this.dataSource.executeQuery(
@@ -21,9 +21,25 @@ export class Themes {
     return result;
   }
 
-  // TODO txn_messagesとtxn_responsesテーブルを結合してtheme_idと一致するデータを取得するメソッド。
+  /* MEMO SQL TEST
+    const query = `SELECT me.id, me.theme_id, me.content, me.created_at, re.id, re.theme_id, re.content, re.created_at
+                    FROM txn_messages as me
+                    JOIN txn_responses as re
+                      ON me.theme_id = re.theme_id
+                    WHERE me.theme_id = ?
+                    ORDER BY me.created_at, re.created_at;      
+    `
+  */
+
   public async selectById(id: string) {
-    const query = "SELECT `id, title, created_at` FROM txn_themes WHERE id = ?";
+    const query = `SELECT th.id, th.title, th.user_id, me.content, re.content
+        FROM txn_themes as th 
+        JOIN txn_messages as me 
+          ON th.id = me.theme_id 
+        JOIN txn_responses as re 
+          ON th.id = re.theme_id
+        WHERE th.id = ?
+        ORDER BY DESC`;
     const params = [id];
 
     const [result]: any = await this.dataSource.executeQuery(query, params);

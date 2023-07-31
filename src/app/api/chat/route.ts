@@ -1,11 +1,6 @@
 import { NextResponse } from "next/server";
-import {
-  RE_LOGIN_AND_RE_QUEST_MESSAGE,
-  STATUS_CODE_200,
-  STATUS_CODE_500,
-} from "src/const";
+import { RE_LOGIN_AND_RE_QUEST_MESSAGE, STATUS_CODE_500 } from "src/const";
 import { checkServerAuth } from "src/hooks/checkServerAuth";
-import { fetchTokensAndInsertDB } from "src/features/api/openai/chat/post";
 import { errorList, ErrorName } from "src/const/errorList";
 import { selectThemeList } from "src/features/api/chat/get";
 

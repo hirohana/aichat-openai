@@ -4,7 +4,7 @@ import { MenuList } from "./MenuList";
 import { UserList } from "./UserList";
 
 import type { ThemeList } from "src/types";
-import { RotatingLines } from "../loading/rotatingLines/RotatingLines";
+import { RotatingLines } from "../../../elements/loading/rotatingLines/RotatingLines";
 
 type Props = {
   isOpen: boolean;
