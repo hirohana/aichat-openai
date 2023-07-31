@@ -17,7 +17,7 @@ export type ThemeId = {
 // Backend側から取得するthemeListの型
 export type ThemeList = Array<{
   id: string;
-  title: string;
+  theme: string;
   created_at: string;
 }>;
 

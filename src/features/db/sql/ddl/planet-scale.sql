@@ -48,7 +48,7 @@ CREATE TABLE `txn_chat_logs` (
   `theme_id` varchar(50) NOT NULL COMMENT "テーマの一意の識別子",
   `sender_id` int NOT NULL COMMENT "ユーザーorAIメッセージ作成者",
   `content` text NOT NULL COMMENT "ユーザーorAIが送信したメッセージ",
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT "チャットの作成日時"
+  `created_at` timestamp(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT "メッセージの作成日時"
 );
 
 INSERT INTO mst_senders (`sender`) VALUES ("user");

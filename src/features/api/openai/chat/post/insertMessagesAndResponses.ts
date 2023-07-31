@@ -1,6 +1,5 @@
 import { DataSource } from "src/features/db/sql/dml/models/DataSource";
-import { Messages } from "src/features/db/sql/dml/models/Messages";
-import { Responses } from "src/features/db/sql/dml/models/Responses";
+import { ChatLogs } from "src/features/db/sql/dml/models/ChatLogs";
 
 type Args = {
   dataSource: DataSource;
@@ -15,15 +14,17 @@ export async function insertMessagesAndResponses({
   userMessage,
   AIResponse,
 }: Args) {
-  const messagesTable = new Messages(dataSource);
+  const messagesTable = new ChatLogs(dataSource);
   await messagesTable.insert({
     theme_id: themeId,
+    sender_id: 1,
     content: userMessage.trim(),
   });
 
-  const responsesTable = new Responses(dataSource);
+  const responsesTable = new ChatLogs(dataSource);
   await responsesTable.insert({
     theme_id: themeId,
+    sender_id: 2,
     content: AIResponse.trim(),
   });
 }

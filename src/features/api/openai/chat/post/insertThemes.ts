@@ -16,9 +16,10 @@ export async function insertThemes({
 }: Args) {
   const themesTable = new Themes(dataSource);
   const trimMessage = userMessage.trim().slice(0, 10);
+
   await themesTable.insert({
     id: themeId,
-    title: trimMessage,
+    theme: trimMessage,
     user_id: userId,
   });
 }

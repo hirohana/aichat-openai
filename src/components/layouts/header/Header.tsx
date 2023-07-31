@@ -9,7 +9,7 @@ import { SideMenu } from "src/components/layouts/header/sideMenu/SideMenu";
 import { OverLay } from "src/components/elements/overlay/OverLay";
 import type { OpenMenu, ThemeId, ThemeList } from "src/types/index";
 
-const themeListInitialState = [{ id: "", title: "", created_at: "" }];
+const themeListInitialState = [{ id: "", theme: "", created_at: "" }];
 
 function Header() {
   const [themeList, setThemeList] = useState<ThemeList>(themeListInitialState);

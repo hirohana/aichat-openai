@@ -18,7 +18,7 @@ export async function ChatLogList({ themeList }: Props) {
         >
           <MenuIconDetail icon={<VscComment className="mr-2 sm:mr-4" />} />
           <Link href={`/chat/${theme.id}`} className="font-semibold">
-            {theme.title}
+            {theme.theme}
           </Link>
         </li>
       ))}
