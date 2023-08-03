@@ -14,15 +14,15 @@ export async function insertMessagesAndResponses({
   userMessage,
   AIResponse,
 }: Args) {
-  const messagesTable = new ChatLogs(dataSource);
-  await messagesTable.insert({
+  const chatLogsTable = new ChatLogs(dataSource);
+
+  await chatLogsTable.insert({
     theme_id: themeId,
     sender_id: 1,
     content: userMessage.trim(),
   });
 
-  const responsesTable = new ChatLogs(dataSource);
-  await responsesTable.insert({
+  await chatLogsTable.insert({
     theme_id: themeId,
     sender_id: 2,
     content: AIResponse.trim(),

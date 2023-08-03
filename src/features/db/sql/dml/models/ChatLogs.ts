@@ -8,6 +8,15 @@ export class ChatLogs {
     this.dataSource = dataSource;
   }
 
+  public async selectByThemeId(themeId: string) {
+    const query =
+      "SELECT `content`, `sender` FROM txn_chat_logs as ch JOIN mst_senders as se ON ch.sender_id = se.id WHERE ch.theme_id = ? ORDER BY created_at;";
+    const params = [themeId];
+
+    const [result]: any = await this.dataSource.executeQuery(query, params);
+    return result;
+  }
+
   public async insert(message: ChatLog) {
     const { theme_id, sender_id, content } = message;
 
