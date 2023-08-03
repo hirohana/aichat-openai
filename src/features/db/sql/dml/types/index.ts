@@ -4,6 +4,19 @@ export type User = {
   image: string;
 };
 
+export type ThemeList = Array<{
+  id: string;
+  theme: string;
+  user_id: number;
+  created_at: string;
+}>;
+
+export type Theme = {
+  id: string;
+  theme: string;
+  user_id: number;
+};
+
 export type ErrorInformation = {
   error_message: string;
   error_code: number;
@@ -13,18 +26,8 @@ export type ErrorInformation = {
   sql_state: number;
 };
 
-export type Theme = {
-  id: string;
-  title: string;
-  user_id: number;
-};
-
-export type UserMessage = {
+export type ChatLog = {
   theme_id: string;
-  content: string;
-};
-
-export type AIResponse = {
-  theme_id: string;
+  sender_id: number;
   content: string;
 };

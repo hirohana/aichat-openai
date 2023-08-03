@@ -1,7 +1,11 @@
 import { NextResponse } from "next/server";
-import { STATUS_CODE_200, STATUS_CODE_500 } from "src/const";
+import {
+  RE_LOGIN_AND_RE_QUEST_MESSAGE,
+  STATUS_CODE_200,
+  STATUS_CODE_500,
+} from "src/const";
 import { checkServerAuth } from "src/hooks/checkServerAuth";
-import { fetchTokensAndInsertDB } from "src/features/api/openai/fetchTokensAndInsertDB";
+import { fetchTokensAndInsertDB } from "src/features/api/openai/chat/post";
 import { errorList, ErrorName } from "src/const/errorList";
 
 export async function POST(request: Request) {
@@ -29,7 +33,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json(
       {
-        message: `${err}`,
+        message: `${RE_LOGIN_AND_RE_QUEST_MESSAGE}: ${err}`,
       },
       { status: STATUS_CODE_500 }
     );

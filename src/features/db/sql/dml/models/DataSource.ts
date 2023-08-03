@@ -21,8 +21,6 @@ export class DataSource {
       return result;
     } catch (err) {
       throw err;
-    } finally {
-      if (statement) await statement.close();
     }
   }
 

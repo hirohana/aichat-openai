@@ -1,10 +1,14 @@
+import { AnyAction, Dispatch } from "@reduxjs/toolkit";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import {
   RE_LOGIN_AND_RE_QUEST_MESSAGE,
   STATUS_CODE_400,
   USER,
 } from "src/const";
+import { setThemeId } from "src/stores/themeId/reducer";
+import { ThemeId } from "src/types";
 
 type DataFromOpenAI = {
   tokens: { role: string; content: string };
@@ -29,7 +33,6 @@ type Payload = {
 
 type ProcessingResponse = {
   tokens: { role: string; content: string };
-  themeId: string;
   setReply: React.Dispatch<React.SetStateAction<string>>;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setMessages: React.Dispatch<
@@ -40,7 +43,6 @@ type ProcessingResponse = {
       }[]
     >
   >;
-  setThemeId: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export const useHooks = () => {
@@ -50,11 +52,14 @@ export const useHooks = () => {
   );
   const [reply, setReply] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [themeId, setThemeId] = useState<string>("");
+  const dispatch = useDispatch();
+  const themeId = useSelector<ThemeId, string>((state) => state.themeId.value);
 
   const fetchTokenFromOpenAI = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    validateMessage(message);
+
+    const isValidate = validateMessage(message);
+    if (!isValidate) return;
 
     try {
       const payload = createPayload({
@@ -65,7 +70,7 @@ export const useHooks = () => {
         setIsLoading,
       });
 
-      const response = await fetch("/api/openai/fetchTokens", {
+      const response = await fetch("/api/openai/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -85,13 +90,13 @@ export const useHooks = () => {
         return;
       }
 
+      setThemeIdToReduxStore(dispatch, serverThemeId);
+
       processResponse({
         setReply,
         setIsLoading,
         setMessages,
         tokens,
-        themeId: serverThemeId,
-        setThemeId,
       });
     } catch (err: any) {
       alert(`${RE_LOGIN_AND_RE_QUEST_MESSAGE}: ${err}`);
@@ -110,10 +115,11 @@ export const useHooks = () => {
 };
 
 // TODO バリデーションチェック。現状足りないので増やす必要がある。
-function validateMessage(message: string) {
+function validateMessage(message: string): boolean {
   if (!message) {
-    return;
+    return false;
   }
+  return true;
 }
 
 function createPayload({
@@ -135,13 +141,18 @@ function createPayload({
   return { userMessage: message, themeId };
 }
 
+function setThemeIdToReduxStore(
+  dispatch: Dispatch<AnyAction>,
+  serverThemeId: string
+) {
+  dispatch(setThemeId(serverThemeId));
+}
+
 function processResponse({
   tokens,
-  themeId,
   setReply,
   setIsLoading,
   setMessages,
-  setThemeId,
 }: ProcessingResponse) {
   setReply("");
   setIsLoading(false);
@@ -152,5 +163,4 @@ function processResponse({
       text: tokens.content,
     },
   ]);
-  setThemeId(themeId);
 }

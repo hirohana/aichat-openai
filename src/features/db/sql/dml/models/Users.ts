@@ -29,9 +29,8 @@ export class Users {
   }
 
   public async insert(user: User): Promise<boolean> {
-    const query =
-      "INSERT INTO txn_users (`name`, `image_url`, `updated_by`) VALUES (?, ?, ?)";
-    const params = [user.name, user.image, user.name];
+    const query = "INSERT INTO txn_users (`name`, `image_url`) VALUES (?, ?)";
+    const params = [user.name, user.image];
 
     // TODO [result]をany型ではなく適切な型に修正を行う。
     const [result]: any = await this.dataSource.executeQuery(query, params);

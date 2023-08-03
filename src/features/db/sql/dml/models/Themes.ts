@@ -1,6 +1,6 @@
 import { DataSource } from "./DataSource";
 
-import type { Theme } from "../types";
+import type { Theme, ThemeList } from "../types";
 
 export class Themes {
   private dataSource: DataSource;
@@ -9,21 +9,23 @@ export class Themes {
     this.dataSource = dataSource;
   }
 
-  // TODO txn_messagesとtxn_responsesテーブルを結合してtheme_idと一致するデータを取得するメソッド。
-  public async select(id: string) {
-    const query = "SELECT `id, title, created_at` FROM txn_themes WHERE id = ?";
-    const params = [id];
+  public async selectByUserId(userId: string): Promise<ThemeList> {
+    const query =
+      "SELECT `id`, `theme`, `created_at` FROM txn_themes WHERE created_by = ? ORDER BY created_at DESC";
+    const params = [userId];
 
-    const [result]: any = await this.dataSource.executeQuery(query, params);
-    const isExist = result.length > 0;
-    return isExist;
+    const [result]: [ThemeList] = await this.dataSource.executeQuery(
+      query,
+      params
+    );
+    return result;
   }
 
-  public async insert(theme: Theme) {
-    const { id, title, user_id } = theme;
+  public async insert(themeObj: Theme) {
+    const { id, theme, user_id } = themeObj;
     const query =
-      "INSERT INTO txn_themes (`id`, `title`, `user_id`) VALUES (?, ?, ?)";
-    const params = [id, title, user_id];
+      "INSERT INTO txn_themes (`id`, `theme`, `created_by`) VALUES (?, ?, ?)";
+    const params = [id, theme, user_id];
 
     const [result]: any = await this.dataSource.executeQuery(query, params);
     const isSuccess = result.affectedRows > 0;
