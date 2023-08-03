@@ -1,5 +1,5 @@
-import { ChatSlug } from "src/components/pages/chat/ChatSlug";
+import { ChatSlugPage } from "src/components/pages/chat/ChatSlugPage";
 
-export default function ChatPage({ params }: { params: { slug: string } }) {
-  return <ChatSlug params={params} />;
+export default function ChatSlug({ params }: { params: { slug: string } }) {
+  return <ChatSlugPage params={params} />
 }

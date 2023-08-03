@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { RE_LOGIN_AND_RE_QUEST_MESSAGE, STATUS_CODE_500 } from "src/const";
 import { ErrorName, errorList } from "src/const/errorList";
+import { ChatLogs } from "src/features/db/sql/dml/models/ChatLogs";
 import { DataSource } from "src/features/db/sql/dml/models/DataSource";
-import { Themes } from "src/features/db/sql/dml/models/Themes";
 import { checkServerAuth } from "src/hooks/checkServerAuth";
 
 export async function GET(
@@ -14,13 +14,12 @@ export async function GET(
     if (!isLogin) return;
 
     const { slug } = params;
-
     const dataSource = new DataSource();
-    const themesTable = new Themes(dataSource);
+    const chatLogsTable = new ChatLogs(dataSource);
 
-    const result = await themesTable.selectById(slug);
+    const chatLogs = await chatLogsTable.selectByThemeId(slug);
 
-    return NextResponse.json("レスポンスが届いた。");
+    return NextResponse.json(chatLogs);
   } catch (err: any) {
     const errMessage = err.message as ErrorName;
 

@@ -11,14 +11,14 @@ type Props = {
 export async function ChatLogList({ themeList }: Props) {
   return (
     <ul>
-      {themeList.map((theme) => (
+      {themeList.map((themeObj) => (
         <li
           className="flex items-center mt-2 w-full py-2 hover:bg-gray-100"
-          key={theme.id}
+          key={themeObj.id}
         >
           <MenuIconDetail icon={<VscComment className="mr-2 sm:mr-4" />} />
-          <Link href={`/chat/${theme.id}`} className="font-semibold">
-            {theme.theme}
+          <Link href={`/chat/${themeObj.id}`} className="font-semibold">
+            {themeObj.theme}
           </Link>
         </li>
       ))}
