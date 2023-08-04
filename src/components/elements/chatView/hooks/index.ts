@@ -142,7 +142,11 @@ function createPayload({
   return { userMessage: message, themeId };
 }
 
-function setThemeIdToReduxStore(
+export function resetThemeId(dispatch: Dispatch<AnyAction>) {
+  dispatch(setThemeId(""));
+}
+
+export function setThemeIdToReduxStore(
   dispatch: Dispatch<AnyAction>,
   serverThemeId: string
 ) {

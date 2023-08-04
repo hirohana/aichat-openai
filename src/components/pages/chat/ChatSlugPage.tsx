@@ -1,15 +1,21 @@
 "use client";
 
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 import { ChatConversation } from "src/components/elements/chatView/chatConversation/ChatConversation";
 import { ChatForm } from "src/components/elements/chatView/chatForm/ChatForm";
 import { useCheckLocalAuthAndRedirect } from "src/hooks/useCheckLocalAuthAndRedirect";
-import { useHooks } from "src/components/elements/chatView/hooks";
+import {
+  resetThemeId,
+  setThemeIdToReduxStore,
+  useHooks,
+} from "src/components/elements/chatView/hooks";
 
 import type { Props } from "src/app/chat/[slug]/page";
 
 export function ChatSlugPage({ params: { slug } }: Props) {
+  const dispatch = useDispatch();
   const user = useCheckLocalAuthAndRedirect();
   const {
     message,
@@ -32,10 +38,15 @@ export function ChatSlugPage({ params: { slug } }: Props) {
       }[] = await response.json();
 
       setMessages(themeSlug);
+      setThemeIdToReduxStore(dispatch, slug);
     };
 
     fetchChatSlug();
-  }, [slug, setMessages]);
+
+    return () => {
+      resetThemeId(dispatch);
+    };
+  }, [slug, setMessages, dispatch]);
 
   return (
     <div className="flex flex-col justify-between h-screen mx-4">
