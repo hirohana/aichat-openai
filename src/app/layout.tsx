@@ -1,9 +1,8 @@
-import { Header } from "src/components/layouts/header/Header";
 import Layout from "src/components/layouts/rootLayout/RootLayout";
 
 export const metadata = {
-  title: "AIChat-OpenAI-DeployTest2",
-  description: "OpenAI API Conversation",
+  title: "AIChat-OpenAI",
+  description: "create by hirohana",
 };
 
 export default function RootLayout({
