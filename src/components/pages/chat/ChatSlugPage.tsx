@@ -13,6 +13,7 @@ import {
 } from "src/components/elements/chatView/hooks";
 
 import type { Props } from "src/app/chat/[slug]/page";
+import { SERVER_ERROR_STATUS_CODE_500 } from "src/const";
 
 export function ChatSlugPage({ params: { slug } }: Props) {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ export function ChatSlugPage({ params: { slug } }: Props) {
 
   useEffect(() => {
     const fetchChatSlug = async () => {
-      const response = await fetch(`http://localhost:3000/api/chat/${slug}`, {
+      const response = await fetch(`/api/chat/${slug}`, {
         cache: "no-cache",
       });
       const themeSlug: {
@@ -41,7 +42,11 @@ export function ChatSlugPage({ params: { slug } }: Props) {
       setThemeIdToReduxStore(dispatch, slug);
     };
 
-    fetchChatSlug();
+    try {
+      fetchChatSlug();
+    } catch (err) {
+      window.alert(`${SERVER_ERROR_STATUS_CODE_500}: ${err}`);
+    }
 
     return () => {
       resetThemeId(dispatch);
