@@ -107,6 +107,7 @@ export const useHooks = () => {
   return {
     message,
     setMessage,
+    setMessages,
     messages,
     isLoading,
     reply,
