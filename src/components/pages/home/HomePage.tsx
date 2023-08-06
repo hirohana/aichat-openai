@@ -1,7 +1,6 @@
 "use client";
 
-import { ChatConversation } from "src/components/elements/chatView/chatConversation/ChatConversation";
-import { ChatForm } from "src/components/elements/chatView/chatForm/ChatForm";
+import ChatView from "src/components/elements/chatView/ChatView";
 import { useHooks } from "src/components/elements/chatView/hooks";
 import { useCheckLocalAuthAndRedirect } from "src/hooks/useCheckLocalAuthAndRedirect";
 
@@ -18,25 +17,15 @@ export async function HomePage() {
 
   return (
     <main className="flex flex-col items-center">
-      {user?.image && (
-        <div className="flex flex-col justify-center w-full h-full max-w-4xl">
-          <ChatForm
-            handleSubmit={fetchTokenFromOpenAI}
-            textAreaProps={{
-              message,
-              setMessage,
-              onKeyDown: fetchTokenFromOpenAI,
-            }}
-          />
-          <ChatConversation
-            messages={messages}
-            userIcon={user.image}
-            assistantIcon="/icon/ai_icon.png"
-            reply={reply}
-            isLoading={isLoading}
-          />
-        </div>
-      )}
+      <ChatView
+        user={user}
+        message={message}
+        messages={messages}
+        reply={reply}
+        isLoading={isLoading}
+        setMessage={setMessage}
+        fetchTokenFromOpenAI={fetchTokenFromOpenAI}
+      />
     </main>
   );
 }

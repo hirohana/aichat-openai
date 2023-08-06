@@ -40,3 +40,39 @@ export async function GET(
     );
   }
 }
+
+export async function DELETE(
+  request: Request,
+  { params }: { params: { slug: string } }
+) {
+  try {
+    const { isLogin } = await checkServerAuth();
+    if (!isLogin) return;
+
+    const { slug } = params;
+    const dataSource = new DataSource();
+    const chatLogsTable = new ChatLogs(dataSource);
+
+    const isSuccess = await chatLogsTable.deleteByThemeId(slug);
+
+    return NextResponse.json(isSuccess);
+  } catch (err: any) {
+    const errMessage = err.message as ErrorName;
+
+    if (errorList[errMessage]) {
+      return NextResponse.json(
+        {
+          message: errorList[errMessage].message,
+        },
+        { status: errorList[errMessage].status }
+      );
+    }
+
+    return NextResponse.json(
+      {
+        message: `${RE_LOGIN_AND_RE_QUEST_MESSAGE}: ${err}`,
+      },
+      { status: STATUS_CODE_500 }
+    );
+  }
+}

@@ -3,8 +3,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-import { ChatConversation } from "src/components/elements/chatView/chatConversation/ChatConversation";
-import { ChatForm } from "src/components/elements/chatView/chatForm/ChatForm";
 import { useCheckLocalAuthAndRedirect } from "src/hooks/useCheckLocalAuthAndRedirect";
 import {
   resetThemeId,
@@ -14,6 +12,7 @@ import {
 
 import type { Props } from "src/app/chat/[slug]/page";
 import { SERVER_ERROR_STATUS_CODE_500 } from "src/const";
+import ChatView from "src/components/elements/chatView/ChatView";
 
 export function ChatSlugPage({ params: { slug } }: Props) {
   const dispatch = useDispatch();
@@ -55,25 +54,15 @@ export function ChatSlugPage({ params: { slug } }: Props) {
 
   return (
     <main className="flex flex-col items-center">
-      {user?.image && (
-        <div className="flex flex-col justify-center w-full h-full max-w-4xl">
-          <ChatForm
-            handleSubmit={fetchTokenFromOpenAI}
-            textAreaProps={{
-              message,
-              setMessage,
-              onKeyDown: fetchTokenFromOpenAI,
-            }}
-          />
-          <ChatConversation
-            messages={messages}
-            userIcon={user.image}
-            assistantIcon="/icon/ai_icon.png"
-            reply={reply}
-            isLoading={isLoading}
-          />
-        </div>
-      )}
+      <ChatView
+        user={user}
+        message={message}
+        messages={messages}
+        reply={reply}
+        isLoading={isLoading}
+        setMessage={setMessage}
+        fetchTokenFromOpenAI={fetchTokenFromOpenAI}
+      />
     </main>
   );
 }
