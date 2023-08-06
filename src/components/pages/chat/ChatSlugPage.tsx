@@ -54,24 +54,26 @@ export function ChatSlugPage({ params: { slug } }: Props) {
   }, [slug, setMessages, dispatch]);
 
   return (
-    <div className="flex flex-col justify-between h-screen mx-4">
-      <main className="flex flex-col justify-center items-center">
-        {user?.image && (
-          <div className="flex flex-col justify-between w-full h-full max-w-4xl">
-            <ChatConversation
-              messages={messages}
-              userIcon={user.image}
-              assistantIcon="/icon/ai_icon.png"
-              reply={reply}
-              isLoading={isLoading}
-            />
-            <ChatForm
-              handleSubmit={fetchTokenFromOpenAI}
-              textAreaProps={{ message, setMessage }}
-            />
-          </div>
-        )}
-      </main>
-    </div>
+    <main className="flex flex-col items-center">
+      {user?.image && (
+        <div className="flex flex-col justify-center w-full h-full max-w-4xl">
+          <ChatForm
+            handleSubmit={fetchTokenFromOpenAI}
+            textAreaProps={{
+              message,
+              setMessage,
+              onKeyDown: fetchTokenFromOpenAI,
+            }}
+          />
+          <ChatConversation
+            messages={messages}
+            userIcon={user.image}
+            assistantIcon="/icon/ai_icon.png"
+            reply={reply}
+            isLoading={isLoading}
+          />
+        </div>
+      )}
+    </main>
   );
 }

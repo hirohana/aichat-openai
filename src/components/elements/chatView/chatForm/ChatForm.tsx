@@ -18,6 +18,7 @@ const ChatForm = (props: Props) => {
       className="flex flex-col items-center sm:flex-row sm:items-start sm:justify-center w-full"
     >
       <ChatMessageArea
+        onKeyDown={textAreaProps.onKeyDown}
         message={textAreaProps.message}
         setMessage={textAreaProps.setMessage}
       />
