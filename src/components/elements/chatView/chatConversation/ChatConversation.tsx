@@ -2,49 +2,22 @@ import { CharacterMessage } from "./characterMessage/CharacterMessage";
 import { TemporaryCharacterMessage } from "./temporaryCharacterMessage/TemporaryCharacterMessage";
 import { useScrollToBottom } from "./useScrollToBottom";
 import { USER } from "src/const";
-import { ChatForm } from "src/components/elements/chatView/chatForm/ChatForm";
-import { SessionUser } from "src/types";
-import { FormEvent, SetStateAction } from "react";
 
 type Message = {
   sender: string;
   text: string;
 };
 
-// type Props = {
-//   messages: Message[];
-//   userIcon: string;
-//   assistantIcon: string;
-//   reply: string;
-//   isLoading: boolean;
-// };
-
 type Props = {
-  user: SessionUser;
-  message: string;
-  messages: {
-    sender: string;
-    text: string;
-  }[];
+  messages: Message[];
   userIcon: string;
   assistantIcon: string;
   reply: string;
   isLoading: boolean;
-  setMessage: React.Dispatch<SetStateAction<string>>;
-  fetchTokenFromOpenAI: (e: FormEvent<HTMLFormElement>) => Promise<void>;
 };
 
 const ChatConversation = (props: Props) => {
-  const {
-    messages,
-    userIcon,
-    assistantIcon,
-    reply,
-    isLoading,
-    fetchTokenFromOpenAI,
-    message,
-    setMessage,
-  } = props;
+  const { messages, userIcon, assistantIcon, reply, isLoading } = props;
   const { divRef } = useScrollToBottom();
   return (
     <div
