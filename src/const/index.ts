@@ -31,6 +31,7 @@ export const STATUS_CODE_500 = 500;
 // Info Message
 export const REGISTER_API_KEY = "APIキーが保存されました。";
 export const DELETE_API_KEY = "APIキーが削除されました。";
+export const DELETE_CHAT_LOG = "チャット履歴が削除されました。";
 
 // Error Message
 export const RE_LOGIN_AND_RE_QUEST_MESSAGE =

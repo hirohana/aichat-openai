@@ -29,5 +29,12 @@ export class ChatLogs {
     return isSuccess;
   }
 
-  public delete(theme_id: string) {}
+  public async deleteByThemeId(theme_id: string) {
+    const query = "DELETE FROM txn_chat_logs WHERE theme_id = ?;";
+    const params = [theme_id];
+
+    const [result]: any = await this.dataSource.executeQuery(query, params);
+    const isSuccess = result.affectedRows > 0;
+    return isSuccess;
+  }
 }
