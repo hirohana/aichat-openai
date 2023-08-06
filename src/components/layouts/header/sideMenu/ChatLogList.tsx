@@ -3,7 +3,7 @@ import { VscComment, VscTrash } from "react-icons/vsc";
 
 import type { ThemeList } from "src/types";
 import { MenuIconDetail } from "./IconDetail";
-import { SERVER_ERROR_STATUS_CODE_500 } from "src/const";
+import { DELETE_CHAT_LOG, SERVER_ERROR_STATUS_CODE_500 } from "src/const";
 
 type Props = {
   themeList: ThemeList;
@@ -22,7 +22,11 @@ export async function ChatLogList({ themeList }: Props) {
 
     if (!isSuccess) {
       window.alert(SERVER_ERROR_STATUS_CODE_500);
+      return;
     }
+
+    window.alert(DELETE_CHAT_LOG);
+    window.location.reload();
   };
 
   return (

@@ -32,5 +32,12 @@ export class Themes {
     return isSuccess;
   }
 
-  public delete(id: string) {}
+  public async delete(id: string) {
+    const query = "DELETE FROM txn_themes WHERE id = ?;";
+    const params = [id];
+
+    const [result]: any = await this.dataSource.executeQuery(query, params);
+    const isSuccess = result.affectedRows > 0;
+    return isSuccess;
+  }
 }
