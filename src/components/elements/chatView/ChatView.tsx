@@ -35,10 +35,6 @@ export default function ChatView({
             assistantIcon="/icon/ai_icon.png"
             reply={reply}
             isLoading={isLoading}
-            message={message}
-            setMessage={setMessage}
-            fetchTokenFromOpenAI={fetchTokenFromOpenAI}
-            user={user}
           />
           <ChatForm
             handleSubmit={fetchTokenFromOpenAI}
