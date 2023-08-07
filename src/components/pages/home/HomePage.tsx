@@ -4,7 +4,7 @@ import ChatView from "src/components/elements/chatView/ChatView";
 import { useHooks } from "src/components/elements/chatView/hooks";
 import { useCheckLocalAuthAndRedirect } from "src/hooks/useCheckLocalAuthAndRedirect";
 
-export async function HomePage() {
+export function HomePage() {
   const user = useCheckLocalAuthAndRedirect();
   const {
     message,
