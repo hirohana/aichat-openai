@@ -3,9 +3,5 @@ import { Suspense } from "src/components/layouts/suspense/Suspense";
 import { HomePage } from "src/components/pages/home/HomePage";
 
 export default function Home() {
-  return (
-    <Suspense loadingIcon={<RotatingLines topDistance="top-12" />}>
-      <HomePage />
-    </Suspense>
-  );
+  return <HomePage />;
 }
