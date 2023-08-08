@@ -11,6 +11,10 @@ type Props = {
 
 export async function ChatLogList({ themeList }: Props) {
   const deleteChatLog = async (id: string) => {
+    if (!window.confirm("チャットログ履歴を削除してもよろしいですか？")) {
+      return;
+    }
+
     let isSuccess = false;
 
     try {
